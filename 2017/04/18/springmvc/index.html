@@ -194,19 +194,17 @@
                 post-container">
 
                 <p>开学的时候看了一本Springmvc入门的书，寒假的时候装回去有原封不动地装回来，直到开学才翻开。<br>感觉对我来说是一本的非常好的书。因为它从简单的web例子入手，一步一步用传统的方法去实现，然后引入springmvc去替代原有的控制器，显示出了springmvc的作用和好处。   </p>
-<p><strong>依赖注入</strong>（如果B是接口，且有多个实现，则问题变得复杂了，我们可以任意选择接口B的一个实现类，但也意味着A的可重用性大大降低了，以为无法采用B的其他实现）<br>1.set方法注入<br>2.构造器方式注入<br>3.Autowired注解</p>
+<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><p><strong>依赖注入</strong>（如果B是接口，且有多个实现，则问题变得复杂了，我们可以任意选择接口B的一个实现类，但也意味着A的可重用性大大降低了，以为无法采用B的其他实现）<br>1.set方法注入<br>2.构造器方式注入<br>3.Autowired注解</p>
 <p>Spring支持xml或注解两种配置方法。此外还需创捷一个ApplicationContext对象代表一个Spring控制反转容器。</p>
 <p>spring创建实例方式：<br>1.通过构造器创建一个bean实例（默认无参构造器，或通过名称或指数向构造器传递参数）<br>）<br>2.通过工厂方法创建一个bean实例（配置factory-method=”getInstance”）</p>
 <p>注入方式：<br>1.Setter方法依赖注入（property name=）<br>2.构造器方式依赖注入（constructor-arg name=）<br>3.Autowired注解</p>
-<p>第二章</p>
-<p>基于mvc模式的模型2，展示了3个不同的实例应用，第一个应用是基本的模型2应用，采用servlet作为控制器，第二格应用引入了控制器，第三个应用引入了验证控件来校验用户的输入。</p>
+<h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><p>基于mvc模式的模型2，展示了3个不同的实例应用，第一个应用是基本的模型2应用，采用servlet作为控制器，第二格应用引入了控制器，第三个应用引入了验证控件来校验用户的输入。</p>
 <p>模型1 通过链接方式进行JSP页面的跳转。<br>模型2 基于模型-视图-控制器（MVC）模式。</p>
 <p>一个实现MVC模式的应用包含模型，视图和控制器3格模块。视图负责应用的展示。模型封装了应用的数据和业务逻辑（采用POJI，采用一个jAVABEAN来持有模型对象，并将业务逻辑放在一个action上）。控制器负责接受用户的输入，改变模型以及调整视图的显示。（如：http：//domain/appName/product_save，控制器会解析URL并调用相应的action，然后将模型对象（bean）放在视图可以访问的区域，以便服务端数据可以展示在浏览器上）。最后，控制器利用RequestDispatcher跳转到视图JSP页面，来显示数据。）</p>
 <p>1.Servlet控制器ControllerServlet类继承直javax.servlet.http.HttpServlet类。其doGet和doPSOT方法调用控制器的核心process方法。process方法获取请求URL和action，创建表单对象，执行业务逻辑，转发到视图。<br>2.把业务逻辑代码提取到独立的被称为controller类中，解耦控制器代码，以前的controllerServlet改为DispatcherServlet</p>
-<p>第三章</p>
-<p>-SpringMVC提供了一个DispatcherServlet，无需额外开发。<br>-SpringMVC可以校验用户输入</p>
+<h1 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h1><p>-SpringMVC提供了一个DispatcherServlet，无需额外开发。<br>-SpringMVC可以校验用户输入</p>
 <p>使用SpringMVC的Dispatcher，需要把它配置在部署描述符（web.xml）。在Spring2.5版本钱，开发一个控制器唯一的方法是实现org.spring.framework.web.servlet.mvc,Controller接口。该接口公开了一个handleRequest方法。其实现类可以访问对应请求的HttpServletRequest和HttpServletResponse，还必须返回包含视图路径或路径和模的ModelAndView对象。Controller接口的实现只能处理一个单一动作（Action），而基于注解的控制器可以同时支持多个请求处理动作，无需实现任何接口。</p>
-<p>第四章<br>2.5版本后引入控制器的注释类型</p>
+<h1 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h1><p>2.5版本后引入控制器的注释类型</p>
 <p>优点：1.一个控制器类可以处理多个动作<br>      2.基于注解的控制器的亲求映射不需要储存在配置文件中</p>
 
 
