@@ -13,11 +13,11 @@
 
     <title>
         
-          Welcome to my Blog - Yisheng的博客 | Yisheng&#39;s Blog
+          springmvc学习指南 - Yisheng的博客 | Yisheng&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://yishenggithub.github.io/2016/08/15/hello-2015/">
+    <link rel="canonical" href="https://yishenggithub.github.io/2017/04/18/test/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -155,7 +155,7 @@
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('post-bg-2015.jpg')
+        background-image: url('spring.jpg')
     }
 </style>
 <header class="intro-header" >
@@ -165,14 +165,16 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#生活" title="生活">生活</a>
+                          <a class="tag" href="/tags/#学习" title="学习">学习</a>
+                        
+                          <a class="tag" href="/tags/#javaweb" title="javaweb">javaweb</a>
                         
                     </div>
-                    <h1>Welcome to my Blog</h1>
-                    <h2 class="subheading"> &quot;Hello World, Hello Blog&quot;</h2>
+                    <h1>springmvc学习指南</h1>
+                    <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by eason on
-                        2016-08-15
+                        2017-04-18
                     </span>
                 </div>
             </div>
@@ -191,30 +193,57 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <blockquote>
-<p>“Yeah It’s on. ”</p>
-</blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我的个人博客在一个16年暑假里便开通了，于是以后便有一个写东西的地方了。</p>
-<p>以前就有过弄一个个人博客的想法，但是由于本人面对着庞大的计算机科学和技术，只是一个刚刚入门初学者，作品和想法不多，并没有到非开不可的地步。</p>
-<p>而且如果是去博客网站去开通一个博客，就一点动力都没有了。一是觉得大部分 Blog 界面都太丑，二是觉得不酷。</p>
-<p>在暑假开始搭建博客网站后，便引起了极大的兴趣，一直用了两天，部署网站，修改界面,绑定域名…才弄成自己满意的样子。</p>
-<p>编程大概就是那样，中间写代码，改细节，改bug，可能会被烦的头脑膨胀，但一旦完成，多少辛苦在成果面前也忘得干净。</p>
+                <p>开学的时候看了一本Springmvc入门的书，寒假的时候装回去有原封不动地装回来，直到开学才翻开。<br>感觉对我来说是一本的非常好的书。因为它从简单的web例子入手，一步一步用传统的方法去实现，然后引入springmvc去替代原有的控制器，显示出了springmvc的作用和好处。   </p>
+<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><p><strong>依赖注入</strong>（如果B是接口，且有多个实现，则问题变得复杂了，我们可以任意选择接口B的一个实现类，但也意味着A的可重用性大大降低了，以为无法采用B的其他实现）<br>1.set方法注入<br>2.构造器方式注入<br>3.Autowired注解</p>
+<p>Spring支持xml或注解两种配置方法。此外还需创捷一个ApplicationContext对象代表一个Spring控制反转容器。</p>
+<p>spring创建实例方式：<br>1.通过构造器创建一个bean实例（默认无参构造器，或通过名称或指数向构造器传递参数）<br>）<br>2.通过工厂方法创建一个bean实例（配置factory-method=”getInstance”）</p>
 <hr>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>接下来说说搭建这个博客的技术细节。  </p>
-<p>用到hexo和github，非常轻松时尚。如果想用的话，网上可以找得到许多教程。只是要小心可能hexo的更新会 和 太久以前的教程不太符合，造成麻烦。</p>
-<p>其优点非常明显：</p>
+<p>title: 来自关于java8的lambda的笔记<br>date: 2017-04-18 23:03:08<br>author: “eason”<br>tags:</p>
 <ul>
-<li><strong>Markdown</strong> 带来的优雅写作体验（我也是在摸索怎么用）</li>
-<li>也算是通过搭建网站初入门了传说中男同性恋交友基地github。</li>
-<li>利用 GitHub Pages 的域名和免费无限空间，不用自己折腾主机</li>
-<li>如果需要自定义域名，也只需要简单改改 DNS 加个 CNAME 就好了（我是通过进入github的仓库，进入setting，设置custom domain）</li>
-<li>hexo 的自定制非常容易，基本就是个模版引擎，可以随意更换主题（我的小小强迫症让我多花了时间在更换网页的图片上）</li>
-<li>GitHub 在国内访问起来也不算太慢</li>
+<li>学习</li>
+<li>java8</li>
 </ul>
 <hr>
-<p>配置的过程中也没遇到什么坑，基本就是 Git 的流程，只是中间可能遇到也小问题，不过很快就解决。<br>不过因为网站和域名配置有延迟，也一度遇到似乎无法解决的问题。</p>
-<p>在hexo的官网找的主题。</p>
-<p>Theme 的 CSS 和 js 方面是关于大前端和大设计，自己觉得自己是个搞后端的，所以没有细细研究。</p>
+<p>在java8中引入，虽然之前我们在都匿名内部类在干这些事。</p>
+<h2 id="什么是lambda"><a href="#什么是lambda" class="headerlink" title="什么是lambda?"></a>什么是lambda?</h2><p>lambda表达式是一段可以传递的代码，它的核心思想是将面向对象中的传递数据变成传递行为。</p>
+<p>不使用lambda：</p>
+<pre><code>Runnable r = new Runnable() {
+   @Override
+   public void run() {
+       System.out.println(&quot;do something.&quot;);      
+   }
+}
+</code></pre><p>使用lambda：</p>
+<pre><code>Runnable r = () -&gt; System.out.println(&quot;do something.&quot;);
+</code></pre><h2 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h2><p>在lambda中我们遵循如下的表达式来编写：</p>
+<pre><code>expression = (variable) -&gt; action
+</code></pre><p>lambda表达式可以包含多个参数,例如：</p>
+<pre><code>int sum = (x, y) -&gt; x + y;
+</code></pre><p>这时候我们应该思考这段代码不是之前的x和y数字相加，而是创建了一个函数，用来计算两个操作数的和。 后面用int类型进行接收，在lambda中为我们省略去了return。</p>
+<h2 id="默认方法"><a href="#默认方法" class="headerlink" title="默认方法"></a>默认方法</h2><p>在Java语言中，一个接口中定义的方法必须由实现类提供实现。但是当接口中加入新的API时， 实现类按照约定也要修改实现，而Java8的API对现有接口也添加了很多方法，比如List接口中添加了sort方法。 如果按照之前的做法，那么所有的实现类都要实现sort方法，JDK的编写者们一定非常抓狂。</p>
+<p>幸运的是我们使用了Java8，这一问题将得到很好的解决，在Java8种引入新的机制，支持在接口中声明方法同时提供实现。 这令人激动不已，你有两种方式完成 1.在接口内声明静态方法 2.指定一个默认方法。</p>
+<p>看在JDK8中上述List接口添加方法的问题是如何解决的：</p>
+<pre><code>default void sort(Comparator&lt;? super E&gt; c) {
+    Object[] a = this.toArray();
+    Arrays.sort(a, (Comparator) c);
+    ListIterator&lt;E&gt; i = this.listIterator();
+    for (Object e : a) {
+        i.next();
+        i.set((E) e);
+    }
+}
+</code></pre><p>翻阅List接口的源码，其中加入一个默认方法default void sort(Comparator&lt;? super E&gt; c)。 在返回值之前加入<strong>default</strong>关键字，有了这个方法我们可以直接调用sort方法进行排序。</p>
+<p>经常看到使用Java8操作集合的时候可以直接foreach的原因也是在Iterable接口中也新增了一个默认方法：forEach ， 该方法功能和 for 循环类似，但是允许 用户使用一个Lambda表达式作为循环体。</p>
+<h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><h4 id="1-消费型接口示例"><a href="#1-消费型接口示例" class="headerlink" title="1. 消费型接口示例"></a>1. 消费型接口示例</h4><pre><code>public static void donation(Integer money, Consumer&lt;Integer&gt; consumer){
+    consumer.accept(money);  
+}
+
+public static void main(String[] args) {
+    donation(1000, money -&gt; System.out.println(&quot;好心的麦乐迪为Blade捐赠了&quot;+money+&quot;元&quot;)) ;
+}
+</code></pre><h4 id="2-供给型接口示例"><a href="#2-供给型接口示例" class="headerlink" title="2.供给型接口示例"></a>2.供给型接口示例</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Integer&gt; <span class="title">supply</span><span class="params">(Integer num, Supplier&lt;Integer&gt; supplier)</span></span>&#123;</div><div class="line">       List&lt;Integer&gt; resultList = <span class="keyword">new</span> ArrayList&lt;Integer&gt;()   ;</div><div class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> x=<span class="number">0</span>;x&lt;num;x++)  </div><div class="line">           resultList.add(supplier.get());</div><div class="line">       <span class="keyword">return</span> resultList ;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    List&lt;Integer&gt; list = supply(<span class="number">10</span>,() -&gt; (<span class="keyword">int</span>)(Math.random()*<span class="number">100</span>));</div><div class="line">    list.forEach(System.out::println);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="3-函数型接口示例"><a href="#3-函数型接口示例" class="headerlink" title="3. 函数型接口示例"></a>3. 函数型接口示例</h4><p>转换字符串为Integer<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title">convert</span><span class="params">(String str, Function&lt;String, Integer&gt; function)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> function.apply(str);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    Integer value = convert(<span class="string">"28"</span>, x -&gt; Integer.parseInt(x));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>####4. 断言型接口示例<br>筛选出只有2个字的水果<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title">filter</span><span class="params">(List&lt;String&gt; fruit, Predicate&lt;String&gt; predicate)</span></span>&#123;</div><div class="line">    List&lt;String&gt; f = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    <span class="keyword">for</span> (String s : fruit) &#123;</div><div class="line">        <span class="keyword">if</span>(predicate.test(s))&#123;</div><div class="line">            f.add(s);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> f;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    List&lt;String&gt; fruit = Arrays.asList(<span class="string">"香蕉"</span>, <span class="string">"哈密瓜"</span>, <span class="string">"榴莲"</span>, <span class="string">"火龙果"</span>, <span class="string">"水蜜桃"</span>);</div><div class="line">    List&lt;String&gt; newFruit = filter(fruit, (f) -&gt; f.length() == <span class="number">2</span>);</div><div class="line">    System.out.println(newFruit);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
 
                 <hr>
@@ -224,9 +253,13 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2017/02/25/lambda/" data-toggle="tooltip" data-placement="top" title="时隔好久更博客">&larr; Previous Post</a>
+                            <a href="/2017/04/18/springmvc/" data-toggle="tooltip" data-placement="top" title="springmvc学习指南">&larr; Previous Post</a>
                         </li>
                     
+                    
+                        <li class="next">
+                            <a href="/2017/02/26/寒假该记录的歌/" data-toggle="tooltip" data-placement="top" title="寒假里的歌">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -269,8 +302,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "https://yishenggithub.github.io/2016/08/15/hello-2015/";
-    var disqus_url = "https://yishenggithub.github.io/2016/08/15/hello-2015/";
+    var disqus_identifier = "https://yishenggithub.github.io/2017/04/18/test/";
+    var disqus_url = "https://yishenggithub.github.io/2017/04/18/test/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
