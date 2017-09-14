@@ -13,11 +13,11 @@
 
     <title>
         
-          springmvc学习指南 - Yisheng的博客 | Yisheng&#39;s Blog
+          来自关于java8的lambda的笔记 - Yisheng的博客 | Yisheng&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://yishenggithub.github.io/2017/04/18/test/">
+    <link rel="canonical" href="https://yishenggithub.github.io/2017/09/15/lambda/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -155,7 +155,7 @@
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
-        background-image: url('spring.jpg')
+        background-image: url('/img/home-bg.jpg')
     }
 </style>
 <header class="intro-header" >
@@ -167,14 +167,14 @@
                         
                           <a class="tag" href="/tags/#学习" title="学习">学习</a>
                         
-                          <a class="tag" href="/tags/#javaweb" title="javaweb">javaweb</a>
+                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
                         
                     </div>
-                    <h1>springmvc学习指南</h1>
+                    <h1>来自关于java8的lambda的笔记</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by eason on
-                        2017-04-18
+                        2017-09-15
                     </span>
                 </div>
             </div>
@@ -193,18 +193,7 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>开学的时候看了一本Springmvc入门的书，寒假的时候装回去有原封不动地装回来，直到开学才翻开。<br>感觉对我来说是一本的非常好的书。因为它从简单的web例子入手，一步一步用传统的方法去实现，然后引入springmvc去替代原有的控制器，显示出了springmvc的作用和好处。   </p>
-<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><p><strong>依赖注入</strong>（如果B是接口，且有多个实现，则问题变得复杂了，我们可以任意选择接口B的一个实现类，但也意味着A的可重用性大大降低了，以为无法采用B的其他实现）<br>1.set方法注入<br>2.构造器方式注入<br>3.Autowired注解</p>
-<p>Spring支持xml或注解两种配置方法。此外还需创捷一个ApplicationContext对象代表一个Spring控制反转容器。</p>
-<p>spring创建实例方式：<br>1.通过构造器创建一个bean实例（默认无参构造器，或通过名称或指数向构造器传递参数）<br>）<br>2.通过工厂方法创建一个bean实例（配置factory-method=”getInstance”）</p>
-<hr>
-<p>title: 来自关于java8的lambda的笔记<br>date: 2017-04-18 23:03:08<br>author: “eason”<br>tags:</p>
-<ul>
-<li>学习</li>
-<li>java8</li>
-</ul>
-<hr>
-<p>在java8中引入，虽然之前我们在都匿名内部类在干这些事。</p>
+                <p>在java8中引入，虽然之前我们在都匿名内部类在干这些事。</p>
 <h2 id="什么是lambda"><a href="#什么是lambda" class="headerlink" title="什么是lambda?"></a>什么是lambda?</h2><p>lambda表达式是一段可以传递的代码，它的核心思想是将面向对象中的传递数据变成传递行为。</p>
 <p>不使用lambda：</p>
 <pre><code>Runnable r = new Runnable() {
@@ -252,13 +241,9 @@ public static void main(String[] args) {
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2017/04/18/springmvc/" data-toggle="tooltip" data-placement="top" title="springmvc学习指南">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/02/26/寒假该记录的歌/" data-toggle="tooltip" data-placement="top" title="寒假里的歌">Next Post &rarr;</a>
+                            <a href="/2017/04/18/springmvc/" data-toggle="tooltip" data-placement="top" title="springmvc学习指南">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -302,8 +287,8 @@ public static void main(String[] args) {
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "https://yishenggithub.github.io/2017/04/18/test/";
-    var disqus_url = "https://yishenggithub.github.io/2017/04/18/test/";
+    var disqus_identifier = "https://yishenggithub.github.io/2017/09/15/lambda/";
+    var disqus_url = "https://yishenggithub.github.io/2017/09/15/lambda/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
