@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          windows，rebar3，cowboy，“hello，world - Yisheng的博客 | Yisheng&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://yishenggithub.github.io/2019/05/13/windows，ebar3，cowboy，helloworld/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yisheng&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://yishenggithub.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#学习" title="学习">学习</a>
+                        
+                          <a class="tag" href="/tags/#源码" title="源码">源码</a>
+                        
+                    </div>
+                    <h1>windows，rebar3，cowboy，“hello，world</h1>
+                    <h2 class="subheading">windows，rebar3，cowboy，“hello，world”</h2>
+                    <span class="meta">
+                        Posted by eason on
+                        2019-05-13
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="windows，rebar3，cowboy，“hello，world”"><a href="#windows，rebar3，cowboy，“hello，world”" class="headerlink" title="windows，rebar3，cowboy，“hello，world”"></a>windows，rebar3，cowboy，“hello，world”</h2><p>在windows环境下使用rebar3 + cowboy在浏览器输出著名的“hello，world”。想使用一下cowboy，找了一些教程，一些是是linux环境下， 一些是旧版本的rebar。Erlang 的项目本身相关的教程总是不多。</p>
+<h3 id="1-rebar3"><a href="#1-rebar3" class="headerlink" title="1. rebar3"></a>1. rebar3</h3><p>github上交rebar3 git clone 下来，地址是<a href="https://github.com/erlang/rebar3，双击bootstrap.bat，" target="_blank" rel="external">https://github.com/erlang/rebar3，双击bootstrap.bat，</a> 生成rebar3和rebar3.cmd这两个文件。便可以将这两个文件复制到任何需要创建和编译项目的地方。</p>
+<h3 id="2-使用rebar3生成项目："><a href="#2-使用rebar3生成项目：" class="headerlink" title="2. 使用rebar3生成项目："></a>2. 使用rebar3生成项目：</h3><p>进入对应的目录， 将rebar3和rebar3.cmd这两个文件复制过来，打开cmd，使用rebar3创建rebar格式的项目test_cowboy：</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">C:\Users\Administrator\Desktop\use_rebar&gt;rebar3 new app test_cowboy</div><div class="line">=<span class="ruby">==&gt; Writing test_cowboy/src/test_cowboy_app.erl</span></div><div class="line">=<span class="ruby">==&gt; Writing test_cowboy/src/test_cowboy_sup.erl</span></div><div class="line">=<span class="ruby">==&gt; Writing test_cowboy/src/test_cowboy.app.src</span></div><div class="line">=<span class="ruby">==&gt; Writing test_cowboy/rebar.config</span></div><div class="line">=<span class="ruby">==&gt; Writing test_cowboy/.gitignore</span></div><div class="line">=<span class="ruby">==&gt; Writing test_cowboy/LICENSE</span></div><div class="line">=<span class="ruby">==&gt; Writing test_cowboy/README.md</span></div></pre></td></tr></table></figure>
+<h3 id="3-改造生成的test-cowboy项目："><a href="#3-改造生成的test-cowboy项目：" class="headerlink" title="3. 改造生成的test_cowboy项目："></a>3. 改造生成的test_cowboy项目：</h3><h4 id="3-1-修改rebar-config"><a href="#3-1-修改rebar-config" class="headerlink" title="3.1 修改rebar.config"></a>3.1 修改rebar.config</h4><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&#123;plugins, [</div><div class="line">    &#123;rebar3_run, &#123;git, <span class="string">"git://github.com/tsloughter/rebar3_run.git"</span>, &#123;branch, <span class="string">"master"</span>&#125;&#125;&#125;</div><div class="line">]&#125;.</div><div class="line">&#123;erl_opts, [debug_info]&#125;.</div><div class="line">&#123;deps, [</div><div class="line">	&#123;cowboy, &#123;git, <span class="string">"git://github.com/extend/cowboy.git"</span>, &#123;tag, <span class="string">"1.0.0"</span>&#125;&#125;&#125;</div><div class="line">]&#125;.</div><div class="line">&#123;relx, [&#123;release, &#123;test_cowboy, <span class="string">"1.0.0"</span>&#125;, [test_cowboy]&#125;,</div><div class="line">        &#123;dev_mode, false&#125;,</div><div class="line">        &#123;include_erts, true&#125;,</div><div class="line">        &#123;system_libs, true&#125;,</div><div class="line">        &#123;include_src, false&#125;,</div><div class="line">        &#123;sys_config, <span class="string">"conf/sys.config"</span>&#125;,</div><div class="line">        &#123;vm_args, <span class="string">"conf/vm.args"</span>&#125;,</div><div class="line">        &#123;extended_start_script, true&#125;</div><div class="line">]&#125;.</div></pre></td></tr></table></figure>
+<h4 id="3-2-在test-cowboy文件夹下创建conf文件夹"><a href="#3-2-在test-cowboy文件夹下创建conf文件夹" class="headerlink" title="3.2 在test_cowboy文件夹下创建conf文件夹"></a>3.2 在test_cowboy文件夹下创建conf文件夹</h4><h4 id="3-3-在conf下创建vm-args和sys-config文件"><a href="#3-3-在conf下创建vm-args和sys-config文件" class="headerlink" title="3.3 在conf下创建vm.args和sys.config文件"></a>3.3 在conf下创建vm.args和sys.config文件</h4><ul>
+<li><p>vm.args</p>
+<figure class="highlight ldif"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## Name of the node</span></div><div class="line"><span class="literal">-name test_cowboy@127.0.0.1</span></div><div class="line"><span class="comment">## Cookie for distributed erlang</span></div><div class="line"><span class="literal">-setcookie shadowolf</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>sys.config</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[].</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3-4-修改src-test-cowboy-app-src"><a href="#3-4-修改src-test-cowboy-app-src" class="headerlink" title="3.4 修改src/test_cowboy.app.src"></a>3.4 修改src/test_cowboy.app.src</h4><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&#123;application, test_cowboy,</div><div class="line">[&#123;description, <span class="string">"Hello Erlang"</span>&#125;,</div><div class="line">    &#123;vsn, <span class="string">"0.1.0"</span>&#125;,</div><div class="line">    &#123;registered, []&#125;,</div><div class="line">    &#123;mod, &#123; test_cowboy_app, []&#125;&#125;,</div><div class="line">    &#123;applications,</div><div class="line">        [   kernel,</div><div class="line">            stdlib,</div><div class="line">            cowboy</div><div class="line">        ]&#125;,</div><div class="line">    &#123;env,[]&#125;,</div><div class="line">    &#123;modules, []&#125;</div><div class="line">]&#125;.</div></pre></td></tr></table></figure>
+<h4 id="3-5-修改src-test-cowboy-sup-erl"><a href="#3-5-修改src-test-cowboy-sup-erl" class="headerlink" title="3.5 修改src/test_cowboy_sup.erl"></a>3.5 修改src/test_cowboy_sup.erl</h4><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">-module</span><span class="params">(test_cowboy_sup)</span>.</div><div class="line"><span class="keyword">-behaviour</span><span class="params">(supervisor)</span>.</div><div class="line"><span class="keyword">-export</span><span class="params">([start_link/<span class="number">0</span>])</span>.</div><div class="line"><span class="keyword">-export</span><span class="params">([init/<span class="number">1</span>])</span>.</div><div class="line"><span class="keyword">-define</span><span class="params">(CHILD(I, Type)</span>, &#123;I, &#123;I, start_link, []&#125;, permanent, 5000, Type, [I]&#125;).</div><div class="line"><span class="keyword">-define</span><span class="params">(SERVER, ?MODULE)</span>.</div><div class="line"><span class="function"><span class="title">start_link</span><span class="params">()</span> -&gt;</span></div><div class="line">        supervisor:start_link(&#123;local, ?SERVER&#125;, ?MODULE, []).</div><div class="line"><span class="function"><span class="title">init</span><span class="params">([])</span> -&gt;</span></div><div class="line">        &#123;ok, &#123; &#123;one_for_all, <span class="number">0</span>, <span class="number">1</span>&#125;, [?CHILD(test_cowboy_web_svr, worker)]&#125; &#125;.</div></pre></td></tr></table></figure>
+<h4 id="3-6-新建src-test-cowboy-web-svr-erl文件"><a href="#3-6-新建src-test-cowboy-web-svr-erl文件" class="headerlink" title="3.6 新建src/test_cowboy_web_svr.erl文件"></a>3.6 新建src/test_cowboy_web_svr.erl文件</h4><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">-module</span><span class="params">(test_cowboy_web_svr)</span>.</div><div class="line"><span class="keyword">-author</span><span class="params">(<span class="string">"zhangpeng"</span>)</span>. -behaviour(gen_server).</div><div class="line"><span class="keyword">-export</span><span class="params">([start_link/<span class="number">0</span>])</span>.</div><div class="line"><span class="keyword">-export</span><span class="params">([init/<span class="number">1</span>,</span></div><div class="line">    handle_call/<span class="number">3</span>,</div><div class="line">    handle_cast/<span class="number">2</span>,</div><div class="line">    handle_info/<span class="number">2</span>,</div><div class="line">    terminate/<span class="number">2</span>,</div><div class="line">    code_change/<span class="number">3</span>]).</div><div class="line"><span class="keyword">-define</span><span class="params">(SERVER, ?MODULE)</span>.</div><div class="line"><span class="keyword">-record</span><span class="params">(state, &#123;&#125;)</span>.</div><div class="line"><span class="function"><span class="title">start_link</span><span class="params">()</span> -&gt;</span></div><div class="line">    gen_server:start_link(&#123;local, ?SERVER&#125;, ?MODULE, [], []).</div><div class="line"><span class="function"><span class="title">init</span><span class="params">([])</span> -&gt;</span></div><div class="line">    Dispatch = cowboy_router:compile(</div><div class="line">        [</div><div class="line">            &#123;'_',</div><div class="line">                [</div><div class="line">                    &#123;<span class="string">"/test_cowboy_1"</span>, test_cowboy_1, []&#125;</div><div class="line">                ]</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    ),</div><div class="line">    NbAcceptorts = <span class="number">100</span>,</div><div class="line">    MaxConn = <span class="number">1024</span> ,</div><div class="line">    Port = <span class="number">8003</span>,</div><div class="line">    &#123;ok, _&#125; = cowboy:start_http(test_cowboy_http, NbAcceptorts,</div><div class="line">    [&#123;port, Port&#125;,</div><div class="line">    &#123;max_connections, MaxConn&#125;],</div><div class="line">    [&#123;env, [&#123;dispatch, Dispatch&#125;]&#125;]),</div><div class="line">    &#123;ok, #state&#123;&#125;&#125;.</div><div class="line"><span class="function"><span class="title">handle_call</span><span class="params">(_Request, _From, State)</span> -&gt;</span></div><div class="line">    &#123;reply, ok, State&#125;.</div><div class="line"><span class="function"><span class="title">handle_cast</span><span class="params">(_Request, State)</span> -&gt;</span></div><div class="line">    &#123;noreply, State&#125;.</div><div class="line"><span class="function"><span class="title">handle_info</span><span class="params">(_Info, State)</span> -&gt;</span></div><div class="line">    &#123;noreply, State&#125;.</div><div class="line"><span class="function"><span class="title">terminate</span><span class="params">(_Reason, _State)</span> -&gt;</span></div><div class="line">    ok.</div><div class="line"><span class="function"><span class="title">code_change</span><span class="params">(_OldVsn, State, _Extra)</span> -&gt;</span></div><div class="line">    &#123;ok, State&#125;.</div></pre></td></tr></table></figure>
+<h4 id="3-7-新建src-test-cowboy-1-erl"><a href="#3-7-新建src-test-cowboy-1-erl" class="headerlink" title="3.7 新建src/test_cowboy_1.erl"></a>3.7 新建src/test_cowboy_1.erl</h4><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">-module</span><span class="params">(test_cowboy_1)</span>.</div><div class="line"><span class="keyword">-author</span><span class="params">(<span class="string">"zhangpeng"</span>)</span>.</div><div class="line"><span class="keyword">-behaviour</span><span class="params">(cowboy_http_handler)</span>.</div><div class="line"><span class="keyword">-export</span><span class="params">([init/<span class="number">3</span>])</span>.</div><div class="line"><span class="keyword">-export</span><span class="params">([handle/<span class="number">2</span>])</span>.</div><div class="line"><span class="keyword">-export</span><span class="params">([terminate/<span class="number">3</span>])</span>.</div><div class="line"><span class="function"><span class="title">init</span><span class="params">(_, Req, _Opts)</span> -&gt;</span></div><div class="line">    &#123;ok, Req, undefined&#125;.</div><div class="line"><span class="function"><span class="title">handle</span><span class="params">(Req, State)</span> -&gt;</span></div><div class="line">    &#123;Param1,Req1&#125; = cowboy_req:qs_val(&lt;&lt;<span class="string">"param1"</span>&gt;&gt;,Req),</div><div class="line">    &#123;Param2,Req2&#125; = cowboy_req:qs_val(&lt;&lt;<span class="string">"param2"</span>&gt;&gt;,Req1),</div><div class="line">    &#123;ok, ReqReturn&#125; = cowboy_req:reply(<span class="number">200</span>, [&#123;&lt;&lt;<span class="string">"content-type"</span>&gt;&gt;, &lt;&lt;<span class="string">"text/plain"</span>&gt;&gt;&#125;], &lt;&lt;<span class="string">"Hello Erlang!"</span>&gt;&gt;, Req2),</div><div class="line">    &#123;ok, ReqReturn, State&#125;.</div><div class="line"><span class="function"><span class="title">terminate</span><span class="params">(_Reason, _Req, _State)</span> -&gt;</span></div><div class="line">    ok.</div></pre></td></tr></table></figure>
+<h3 id="4-把rebar3和rebar3-cmd文件放置到test-cowboy目录中，编译工程："><a href="#4-把rebar3和rebar3-cmd文件放置到test-cowboy目录中，编译工程：" class="headerlink" title="4. 把rebar3和rebar3.cmd文件放置到test_cowboy目录中，编译工程："></a>4. 把rebar3和rebar3.cmd文件放置到test_cowboy目录中，编译工程：</h3><figure class="highlight moonscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="name">C</span>:\Users\Administrator\Desktop\use_rebar&gt;cd <span class="name">C</span>:\Users\Administrator\Desktop\use_r</div><div class="line">ebar\test_cowboy</div><div class="line"></div><div class="line"><span class="name">C</span>:\Users\Administrator\Desktop\use_rebar\test_cowboy&gt;rebar3 compile</div><div class="line">==<span class="function">=&gt;</span> Fetching rebar3_run (<span class="keyword">from</span> &#123;git,<span class="string">"git://github.com/tsloughter/rebar3_run.git"</span></div><div class="line">,</div><div class="line">                      &#123;branch,<span class="string">"master"</span>&#125;&#125;)</div><div class="line">==<span class="function">=&gt;</span> Compiling rebar3_run</div><div class="line">==<span class="function">=&gt;</span> Verifying dependencies...</div><div class="line">==<span class="function">=&gt;</span> Fetching cowboy (<span class="keyword">from</span> &#123;git,<span class="string">"git://github.com/extend/cowboy.git"</span>,&#123;tag,<span class="string">"1.0.0</span></div><div class="line">"&#125;&#125;)</div><div class="line">==<span class="function">=&gt;</span> Fetching cowlib (<span class="keyword">from</span> &#123;git,<span class="string">"git://github.com/extend/cowlib.git"</span>,<span class="string">"1.0.0"</span>&#125;)</div><div class="line">==<span class="function">=&gt;</span> <span class="name">WARNING</span>: It is recommended to use &#123;branch, Name&#125;, &#123;tag, Tag&#125; <span class="keyword">or</span> &#123;ref, Ref&#125;,</div><div class="line"> otherwise updating the dep may <span class="keyword">not</span> work as expected.</div><div class="line">==<span class="function">=&gt;</span> Fetching ranch (<span class="keyword">from</span> &#123;git,<span class="string">"git://github.com/extend/ranch.git"</span>,<span class="string">"1.0.0"</span>&#125;)</div><div class="line">==<span class="function">=&gt;</span> <span class="name">WARNING</span>: It is recommended to use &#123;branch, Name&#125;, &#123;tag, Tag&#125; <span class="keyword">or</span> &#123;ref, Ref&#125;,</div><div class="line"> otherwise updating the dep may <span class="keyword">not</span> work as expected.</div><div class="line">==<span class="function">=&gt;</span> Compiling cowlib</div><div class="line">==<span class="function">=&gt;</span> Compiling ranch</div><div class="line">==<span class="function">=&gt;</span> Compiling cowboy</div><div class="line">==<span class="function">=&gt;</span> Compiling test_cowboy</div><div class="line">src/test_cowboy_1.<span class="name">erl</span>:<span class="number">9</span>: <span class="name">Warning</span>: variable <span class="string">'Param1'</span> is unused</div><div class="line">src/test_cowboy_1.<span class="name">erl</span>:<span class="number">10</span>: <span class="name">Warning</span>: variable <span class="string">'Param2'</span> is unused</div></pre></td></tr></table></figure>
+<h3 id="5-启动："><a href="#5-启动：" class="headerlink" title="5.启动："></a>5.启动：</h3><figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">C:\Users\danz\erl\<span class="number">1</span>\test_cowboy&gt;rebar3 shell</div><div class="line">Hi,I am .erlang file.</div><div class="line">===&gt; Verifying dependencies...</div><div class="line">===&gt; Compiling test_cowboy</div><div class="line">===&gt; The rebar3 shell is a development tool; to deploy applications in production, consider using releases (http://www.rebar3.org/docs/releases)</div><div class="line">Eshell V7.<span class="number">1</span>  (abort with ^G)</div><div class="line"><span class="meta">1&gt; </span>===&gt; Booted ranch</div><div class="line"><span class="meta">1&gt; </span>===&gt; Booted cowlib</div><div class="line"><span class="meta">1&gt; </span>===&gt; Booted cowboy</div><div class="line"><span class="meta">1&gt; </span>===&gt; Booted test_cowboy</div></pre></td></tr></table></figure>
+<h3 id="6"><a href="#6" class="headerlink" title="6."></a>6.</h3><p>浏览器访问：<a href="http://localhost:8003/test_cowboy_1" target="_blank" rel="external">http://localhost:8003/test_cowboy_1</a></p>
+<p>可以看到  hello world！</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/07/12/Java的IO系统/" data-toggle="tooltip" data-placement="top" title="Java的IO系统">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://yishenggithub.github.io/2019/05/13/windows，ebar3，cowboy，helloworld/";
+    var disqus_url = "https://yishenggithub.github.io/2019/05/13/windows，ebar3，cowboy，helloworld/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yisheng&#39;s Blog 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://yishenggithub.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'huangxuan.me';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://yishenggithub.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

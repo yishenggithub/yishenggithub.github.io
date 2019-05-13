@@ -97,14 +97,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -193,13 +193,23 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                
+                <p>看了thinking in Java的18章，Java I/O系统提到策略设计模式,p531。</p>
+<p>File类<br>File类不仅仅只代表存在的文件或目录，也可以用File对象来创建新的目录或者不存在的整个目录路径。我们还可以查看文件的特征：大小，最后修改日期，读写，检查某个File对象代表的是文件还是目录。</p>
+<p>输入和输出<br>编程语言的IO类库中常用流这一抽象概念。它代表有能力产出数据的数据源的对象或者有能力接受数据的接收端对象。“流”屏蔽了实际的I/O设备中处理数据的细节。</p>
+<p>提到装饰者模式，p533</p>
+<p>Note：Java中流类库让人迷惑的主要原因在于创建单一的结果流，却需要创建多个对象。</p>
+<p>18.4.1<br>几乎所有原始的JavaIO流类都有相应的Reader和Writer类来提供天然的Unicode操作。然而在某些场合，向java.util.zip类库是面向字节的而不是字符串。最明智的做法是尽量尝试使用Reader和Write，知道代码无法编译。</p>
+
 
                 <hr>
 
                 
 
                 <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/05/13/windows，ebar3，cowboy，helloworld/" data-toggle="tooltip" data-placement="top" title="windows，rebar3，cowboy，“hello，world">&larr; Previous Post</a>
+                        </li>
                     
                     
                         <li class="next">
@@ -318,7 +328,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Yisheng&#39;s Blog 2018 
+                    Copyright &copy; Yisheng&#39;s Blog 2019 
                     <br>
                     Theme by <a href="http://huangxuan.me">Hux</a> 
                     <span style="display: inline-block; margin: 0 5px;">

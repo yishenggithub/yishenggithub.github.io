@@ -13,11 +13,11 @@
 
     <title>
         
-          时隔好久更博客 - Yisheng的博客 | Yisheng&#39;s Blog
+          Yisheng的博客 | Yisheng&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://yishenggithub.github.io/2017/02/25/lambda/">
+    <link rel="canonical" href="https://yishenggithub.github.io/tags/源码/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,6 +90,13 @@
 
                         
                         <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -98,13 +105,6 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -147,192 +147,7 @@
 
 
     <!-- Main Content -->
-    
-<!-- Image to hack wechat -->
-<!-- <img src="https://yishenggithub.github.io/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
-
-<!-- Post Header -->
-<style type="text/css">
-    header.intro-header{
-        background-image: url('/img/home-bg.jpg')
-    }
-</style>
-<header class="intro-header" >
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                          <a class="tag" href="/tags/#生活" title="生活">生活</a>
-                        
-                          <a class="tag" href="/tags/#纪录" title="纪录">纪录</a>
-                        
-                    </div>
-                    <h1>时隔好久更博客</h1>
-                    <h2 class="subheading"></h2>
-                    <span class="meta">
-                        Posted by eason on
-                        2017-02-25
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-    <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <h2 id="第二篇博文"><a href="#第二篇博文" class="headerlink" title="第二篇博文"></a>第二篇博文</h2><p>用hexo和github搭博客是去年暑假的时候，当时还没有学node.js，github也只是听说过。花了一番力气搭好，又绑定了域名后，只是写了一篇庆祝开通的博客就搁置了，关于博客搭建的原理完全没有概念。后来域名过期，以前的域名是newyisheng.xyz，想续域名的活没有第一次买的优惠，所以换到了oneyisheng.xyz。即使以前的域名只是我一个人记得住，但还是喜欢以前的new开头。<br>因为新学期开始的时候对node.js感兴趣，也因为之前看springmvc的书想写打博客上来，所以才关照起了以前的博客。<br>因为太久没有用了，想更新却完全不知道该怎么下手，都忘了怎么操作了，git忘了，命令更是忘了，以前的文件夹在哪里也有点迷糊。然后又看了一些教程，摸索着，终于才更新了博客。</p>
-<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><ul>
-<li><p>用node的命令行工具是git命令没有加入到path环境变量中。</p>
-</li>
-<li><p>hexo命令是在存放博客的文件夹下面用，因为hexoinit创建时在文件夹了创建了相关文件。</p>
-</li>
-<li><p>git命令行工具用hexo时找不到node，我记得以前用的就是git的命令行工具啊。</p>
-</li>
-<li><p>把hexo s，hexo g，hexo d这些命令行弄清楚了之后，试着上传一些对以前博文的修改。传上去之后，域名打不开了。后来才发现是CNAME文件没了，得重新创建。</p>
-</li>
-<li><p>编码问题，生成静态文件然后部署后，博文总是很奇怪。是编码的问题，用sublime就正常。</p>
-</li>
-<li><p>还有莫名其妙多了两篇写着easomeasom的文章。可能是wps没有关。<br>博客消失了，然后怎么上传都没反应，可能是用了hexo clean。</p>
-</li>
-<li><p>使用到的工具是node.js，cd到blog2这个文件夹就可以用下面的命令操作了，编辑文本用到sublime</p>
-</li>
-</ul>
-<h2 id="常用hexo命令"><a href="#常用hexo命令" class="headerlink" title="常用hexo命令"></a>常用hexo命令</h2><ul>
-<li><p>hexo new “postName” #新建文章</p>
-</li>
-<li><p>hexo new page “pageName” #新建页面</p>
-</li>
-<li><p>hexo generate #生成静态页面至public目录</p>
-</li>
-<li><p>hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）</p>
-</li>
-<li><p>hexo deploy #部署到GitHub</p>
-</li>
-<li><p>hexo help  # 查看帮助</p>
-</li>
-<li><p>hexo version  #查看Hexo的版本</p>
-</li>
-</ul>
-
-
-                <hr>
-
-                
-
-                <ul class="pager">
-                    
-                        <li class="previous">
-                            <a href="/2017/02/25/寒假里看的电影电视/" data-toggle="tooltip" data-placement="top" title="寒假里看的电影电视">&larr; Previous Post</a>
-                        </li>
-                    
-                    
-                        <li class="next">
-                            <a href="/2016/08/15/hello-2015/" data-toggle="tooltip" data-placement="top" title="Welcome to my Blog">Next Post &rarr;</a>
-                        </li>
-                    
-                </ul>
-
-                
-
-                
-                <!-- disqus 评论框 start -->
-                <div class="comment">
-                    <div id="disqus_thread" class="disqus-thread"></div>
-                </div>
-                <!-- disqus 评论框 end -->
-                
-
-            </div>
-    <!-- Side Catalog Container -->
-        
-
-    <!-- Sidebar Container -->
-
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                <!-- Featured Tags -->
-                
-
-                <!-- Friends Blog -->
-                
-            </div>
-
-        </div>
-    </div>
-</article>
-
-
-
-
-<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "https://yishenggithub.github.io/2017/02/25/lambda/";
-    var disqus_url = "https://yishenggithub.github.io/2017/02/25/lambda/";
-
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<!-- disqus 公共JS代码 end -->
-
-
-
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script>
-    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-    })
-</script>
-<style>
-    /* place left on bigger screen */
-    @media all and (min-width: 800px) {
-        .anchorjs-link{
-            position: absolute;
-            left: -0.75em;
-            font-size: 1.1em;
-            margin-top : -0.1em;
-        }
-    }
-</style>
-
-
+    <!-- Default Archive layout, we use archives instead. -->
 
     <!-- Footer -->
     <!-- Footer -->
@@ -355,7 +170,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Yisheng&#39;s Blog 2017 
+                    Copyright &copy; Yisheng&#39;s Blog 2019 
                     <br>
                     Theme by <a href="http://huangxuan.me">Hux</a> 
                     <span style="display: inline-block; margin: 0 5px;">
