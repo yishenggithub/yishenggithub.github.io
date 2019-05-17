@@ -13,11 +13,11 @@
 
     <title>
         
-          来自lambda表达式的笔记 - Yisheng的博客 | Yisheng&#39;s Blog
+          cowboy源码阅读（1） - Yisheng的博客 | Yisheng&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://yishenggithub.github.io/2017/09/15/lambda/">
+    <link rel="canonical" href="https://yishenggithub.github.io/2019/05/14/cowboy源码阅读（1）/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -167,14 +167,14 @@
                         
                           <a class="tag" href="/tags/#学习" title="学习">学习</a>
                         
-                          <a class="tag" href="/tags/#java8" title="java8">java8</a>
+                          <a class="tag" href="/tags/#源码" title="源码">源码</a>
                         
                     </div>
-                    <h1>来自lambda表达式的笔记</h1>
-                    <h2 class="subheading"></h2>
+                    <h1>cowboy源码阅读（1）</h1>
+                    <h2 class="subheading">cowboy源码阅读</h2>
                     <span class="meta">
                         Posted by eason on
-                        2017-09-15
+                        2019-05-14
                     </span>
                 </div>
             </div>
@@ -193,31 +193,26 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p><strong>lambda</strong>是java8的最重要的特征之一，它可以让代码变得简洁流畅。函数式编程也终于在java8中引入，虽然之前有匿名内部类。</p>
-<h2 id="什么是lambda"><a href="#什么是lambda" class="headerlink" title="什么是lambda?"></a>什么是lambda?</h2><p><strong>lambda表达式是一段可以传递的代码，它的核心思想是将面向对象中的传递数据变成传递行为。</strong></p>
-<ul>
-<li>不使用lambda：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Runnable r = <span class="keyword">new</span> Runnable() &#123;</div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">       System.out.println(<span class="string">"do something."</span>);      </div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>使用lambda：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Runnable r = () -&gt; System.out.println(<span class="string">"do something."</span>);</div></pre></td></tr></table></figure>
-<h2 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h2><p>在lambda中我们遵循如下的表达式来编写：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">expression = (variable) -&gt; action</div></pre></td></tr></table></figure>
-<p>lambda表达式可以包含多个参数,例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> sum = (x, y) -&gt; x + y;</div></pre></td></tr></table></figure>
-<p>这时候我们应该思考这段代码不是之前的x和y数字相加，而是创建了一个函数，用来计算两个操作数的和。 后面用int类型进行接收，在lambda中为我们省略去了return。</p>
-<h2 id="默认方法"><a href="#默认方法" class="headerlink" title="默认方法"></a>默认方法</h2><p>在Java语言中，一个接口中定义的方法必须由实现类提供实现。但是当接口中加入新的API时， 实现类按照约定也要修改实现，而Java8的API对现有接口也添加了很多方法，比如List接口中添加了sort方法。 如果按照之前的做法，那么所有的实现类都要实现sort方法，JDK的编写者们一定非常抓狂。</p>
-<p>幸运的是我们使用了Java8，这一问题将得到很好的解决，在Java8种引入新的机制，支持在接口中声明方法同时提供实现。 这令人激动不已，你有两种方式完成 1.在接口内声明静态方法 2.指定一个默认方法。</p>
-<p>看在JDK8中上述List接口添加方法的问题是如何解决的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparator&lt;? <span class="keyword">super</span> E&gt; c)</span> </span>&#123;</div><div class="line">    Object[] a = <span class="keyword">this</span>.toArray();</div><div class="line">    Arrays.sort(a, (Comparator) c);</div><div class="line">    ListIterator&lt;E&gt; i = <span class="keyword">this</span>.listIterator();</div><div class="line">    <span class="keyword">for</span> (Object e : a) &#123;</div><div class="line">        i.next();</div><div class="line">        i.set((E) e);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>翻阅List接口的源码，其中加入一个默认方法default void sort(Comparator&lt;? super E&gt; c)。 在返回值之前加入<strong>default</strong>关键字，有了这个方法我们可以直接调用sort方法进行排序。</p>
-<p>经常看到使用Java8操作集合的时候可以直接foreach的原因也是在Iterable接口中也新增了一个默认方法：forEach ， 该方法功能和 for 循环类似，但是允许 用户使用一个Lambda表达式作为循环体。</p>
-<h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><h4 id="1-消费型接口示例"><a href="#1-消费型接口示例" class="headerlink" title="1. 消费型接口示例"></a>1. 消费型接口示例</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">donation</span><span class="params">(Integer money, Consumer&lt;Integer&gt; consumer)</span></span>&#123;</div><div class="line">    consumer.accept(money);  </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    donation(<span class="number">1000</span>, money -&gt; System.out.println(<span class="string">"好心的麦乐迪为Blade捐赠了"</span>+money+<span class="string">"元"</span>)) ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="2-供给型接口示例"><a href="#2-供给型接口示例" class="headerlink" title="2.供给型接口示例"></a>2.供给型接口示例</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Integer&gt; <span class="title">supply</span><span class="params">(Integer num, Supplier&lt;Integer&gt; supplier)</span></span>&#123;</div><div class="line">       List&lt;Integer&gt; resultList = <span class="keyword">new</span> ArrayList&lt;Integer&gt;()   ;</div><div class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> x=<span class="number">0</span>;x&lt;num;x++)  </div><div class="line">           resultList.add(supplier.get());</div><div class="line">       <span class="keyword">return</span> resultList ;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    List&lt;Integer&gt; list = supply(<span class="number">10</span>,() -&gt; (<span class="keyword">int</span>)(Math.random()*<span class="number">100</span>));</div><div class="line">    list.forEach(System.out::println);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="3-函数型接口示例"><a href="#3-函数型接口示例" class="headerlink" title="3. 函数型接口示例"></a>3. 函数型接口示例</h4><p>转换字符串为Integer<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title">convert</span><span class="params">(String str, Function&lt;String, Integer&gt; function)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> function.apply(str);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    Integer value = convert(<span class="string">"28"</span>, x -&gt; Integer.parseInt(x));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>####4. 断言型接口示例<br>筛选出只有2个字的水果<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title">filter</span><span class="params">(List&lt;String&gt; fruit, Predicate&lt;String&gt; predicate)</span></span>&#123;</div><div class="line">    List&lt;String&gt; f = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    <span class="keyword">for</span> (String s : fruit) &#123;</div><div class="line">        <span class="keyword">if</span>(predicate.test(s))&#123;</div><div class="line">            f.add(s);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> f;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    List&lt;String&gt; fruit = Arrays.asList(<span class="string">"香蕉"</span>, <span class="string">"哈密瓜"</span>, <span class="string">"榴莲"</span>, <span class="string">"火龙果"</span>, <span class="string">"水蜜桃"</span>);</div><div class="line">    List&lt;String&gt; newFruit = filter(fruit, (f) -&gt; f.length() == <span class="number">2</span>);</div><div class="line">    System.out.println(newFruit);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+                <h1 id="cowboy源码阅读（1）"><a href="#cowboy源码阅读（1）" class="headerlink" title="cowboy源码阅读（1）"></a>cowboy源码阅读（1）</h1><p> 花了一个星期，终于把erlang and otp in action看完了，并跟着书实现了一遍书中的例子。看完这本书基本关于otp的内容都能理解了，因为erlang的花里胡哨并不多，这也是erlang的一大优点。庆幸自己在接触erlang的时候，已经有了这本书的中文版，在加上joe的Programming Erlang这本书，已经将erlang贯穿梳理好了，不至于像蛮荒时代的前人一样在英文文档的零散细节和中寻路。<br>github地址：<a href="https://github.com/ninenines/cowboy" target="_blank" rel="external">https://github.com/ninenines/cowboy</a><br>user guide地址：<a href="https://ninenines.eu/docs/en/cowboy/2.6/guide/" target="_blank" rel="external">https://ninenines.eu/docs/en/cowboy/2.6/guide/</a><br>function介绍地址：<a href="https://ninenines.eu/docs/en/cowboy/2.6/manual/" target="_blank" rel="external">https://ninenines.eu/docs/en/cowboy/2.6/manual/</a><br>官方介绍：</p>
+<blockquote>
+<p>Cowboy is a small, fast and modern HTTP server for Erlang/OTP.<br><strong>Goals</strong><br>Cowboy aims to provide a complete HTTP stack in a small code base. It is optimized for low latency and low memory usage, in part because it uses binary strings.<br>Cowboy provides routing capabilities, selectively dispatching requests to handlers written in Erlang.<br>Because it uses Ranch for managing connections, Cowboy can easily be embedded in any other application.<br>Cowboy is clean and well tested Erlang code.</p>
+</blockquote>
+<ol>
+<li><p><strong>cowboy.app.src</strong> 这个文件编译为cowboy.app，系统便根据cowboy.app中的元数据启动和停止应用。</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&#123;application, cowboy, [</div><div class="line">   &#123;description, <span class="string">"Small, fast, modular HTTP server."</span>&#125;,</div><div class="line">   &#123;vsn, <span class="string">"1.0.0"</span>&#125;,</div><div class="line">   &#123;modules, []&#125;,</div><div class="line">   &#123;registered, [cowboy_clock, cowboy_sup]&#125;,</div><div class="line">   &#123;applications, [</div><div class="line">      kernel,</div><div class="line">      stdlib,</div><div class="line">      ranch,</div><div class="line">      cowlib,</div><div class="line">      crypto</div><div class="line">   ]&#125;,</div><div class="line">   &#123;mod, &#123;cowboy_app, []&#125;&#125;,</div><div class="line">   &#123;env, []&#125;</div><div class="line">]&#125;.</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>cowboy_app实现了application行为模式, 是系统的根监督者，应用在启动时调用cowboy_app:start()。cowboy_app模块的代码很简单，在start中执行cowboy_sup:start_link()来启动一个监督者，重启策略为one_for_one,  崩溃重启仅针对一个子进程，其他不受影响。同时设置了重启频率。</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">-module</span><span class="params">(cowboy_sup)</span>.</div><div class="line"><span class="keyword">-behaviour</span><span class="params">(supervisor)</span>.</div><div class="line"></div><div class="line"><span class="keyword">-export</span><span class="params">([start_link/<span class="number">0</span>])</span>.</div><div class="line"><span class="keyword">-export</span><span class="params">([init/<span class="number">1</span>])</span>.</div><div class="line"></div><div class="line"><span class="keyword">-spec</span> start_link<span class="params">()</span> -&gt; &#123;ok, pid<span class="params">()</span>&#125;.</div><div class="line"><span class="function"><span class="title">start_link</span><span class="params">()</span> -&gt;</span></div><div class="line">   supervisor:start_link(&#123;local, ?MODULE&#125;, ?MODULE, []).</div><div class="line"></div><div class="line"><span class="keyword">-spec</span> init<span class="params">([])</span></div><div class="line">   -&gt; &#123;ok, &#123;&#123;supervisor:strategy<span class="params">()</span>, 10, 10&#125;, [supervisor:child_spec<span class="params">()</span>]&#125;&#125;.</div><div class="line"><span class="function"><span class="title">init</span><span class="params">([])</span> -&gt;</span></div><div class="line">   Procs = [&#123;cowboy_clock, &#123;cowboy_clock, start_link, []&#125;,</div><div class="line">      permanent, <span class="number">5000</span>, worker, [cowboy_clock]&#125;],</div><div class="line">   &#123;ok, &#123;&#123;one_for_one, <span class="number">10</span>, <span class="number">10</span>&#125;, Procs&#125;&#125;.</div></pre></td></tr></table></figure>
+<p>cowboy_sup实现了supervisor行为模式，回调init模块，启动监督树下的cowboy_clock这个工作进程。这个是cowboy_clock的注释：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">%% While <span class="keyword">a</span> gen_server <span class="built_in">process</span> runs <span class="keyword">in</span> <span class="keyword">the</span> background <span class="built_in">to</span> update</div><div class="line">%% <span class="keyword">the</span> cache <span class="keyword">of</span> formatted dates every <span class="keyword">second</span>, all API calls are</div><div class="line">%% <span class="built_in">local</span> <span class="keyword">and</span> directly <span class="built_in">read</span> <span class="built_in">from</span> <span class="keyword">the</span> ETS cache table, providing</div><div class="line">%% fast <span class="built_in">time</span> <span class="keyword">and</span> <span class="built_in">date</span> computations.</div></pre></td></tr></table></figure>
+<p>试着翻译一下，这个gen_server进程在后台运行着，时刻更新格式化日期的缓存，所有api可以直接从ets缓存表中获取，获得更快速的时间和日期计算。</p>
+<h5 id="cowboy-clock："><a href="#cowboy-clock：" class="headerlink" title="cowboy_clock："></a>cowboy_clock：</h5><p>在回调init中创建ets表，开启一个定时器：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">?MODULE = ets:new(?MODULE, [set, protected,named_table, &#123;read_concurrency, true&#125;]),</div></pre></td></tr></table></figure>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TRef = erlang:send_after(<span class="number">1000</span>, self(), update),</div></pre></td></tr></table></figure>
+<p>接收到后，会取消定时器，更新时间，在发送：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">handle_info</span><span class="params">(update, #state&#123;universaltime=Prev, rfc1123=B1, tref=TRef0&#125;)</span> -&gt;</span></div><div class="line">   <span class="comment">%% Cancel the timer in case an external process sent an update message.</span></div><div class="line">   _ = erlang:cancel_timer(TRef0),</div><div class="line">   T = erlang:universaltime(),</div><div class="line">   B2 = update_rfc1123(B1, Prev, T),</div><div class="line">   ets:insert(?MODULE, &#123;rfc1123, B2&#125;),</div><div class="line">   TRef = erlang:send_after(<span class="number">1000</span>, self(), update),</div><div class="line">   &#123;noreply, #state&#123;universaltime=T, rfc1123=B2, tref=TRef&#125;&#125;;</div></pre></td></tr></table></figure>
+<p>erlang实现定时器有好几种方式，关于各种定时器的分析的一遍文章：<a href="https://www.cnblogs.com/zhongwencool/p/erlang_timer.html" target="_blank" rel="external">https://www.cnblogs.com/zhongwencool/p/erlang_timer.html</a></p>
 
 
                 <hr>
@@ -227,12 +222,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/06/25/新的开始/" data-toggle="tooltip" data-placement="top" title="新的开始">&larr; Previous Post</a>
+                            <a href="/2019/05/16/cowboy源码阅读（2）/" data-toggle="tooltip" data-placement="top" title="cowboy源码阅读（2）">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2017/09/15/后来的暑假/" data-toggle="tooltip" data-placement="top" title="最后的暑假和那些歌儿">Next Post &rarr;</a>
+                            <a href="/2019/05/13/Windows,Rebar3,Cowboy,hello_world/" data-toggle="tooltip" data-placement="top" title="Windows, Rebar3, Cowboy, hello_world">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -276,8 +271,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "https://yishenggithub.github.io/2017/09/15/lambda/";
-    var disqus_url = "https://yishenggithub.github.io/2017/09/15/lambda/";
+    var disqus_identifier = "https://yishenggithub.github.io/2019/05/14/cowboy源码阅读（1）/";
+    var disqus_url = "https://yishenggithub.github.io/2019/05/14/cowboy源码阅读（1）/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
