@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          剑雨风云场景启动初始化过程--后端 - Yisheng的博客 | Yisheng&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://yishenggithub.github.io/2019/06/08/剑雨风云场景启动初始化过程--后端/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yisheng&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://yishenggithub.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('场景.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#学习" title="学习">学习</a>
+                        
+                          <a class="tag" href="/tags/#源码" title="源码">源码</a>
+                        
+                    </div>
+                    <h1>剑雨风云场景启动初始化过程--后端</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by easom on
+                        2019-06-08
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>在游戏来逻辑节点tpl_node_logic和跨服中心节点tpl_node_kfcenter中start_scene(NodeID, SvrType)将当前节点和服务器类型传入开启场景监控树：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%% @doc 开启场景监控树</span></div><div class="line"><span class="function"><span class="title">start_scene</span><span class="params">(NodeID, SvrType)</span> -&gt;</span></div><div class="line">    &#123;ok, _&#125; = supervisor:start_child(sup,</div><div class="line">        &#123;sup_scene, &#123;sup_scene, start_link, [NodeID, SvrType]&#125;,</div><div class="line">            permanent, <span class="number">10000</span>, worker, [sup_scene]&#125;),</div><div class="line">    ok.</div></pre></td></tr></table></figure>
+<p>sup_scene:init代码：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">init</span><span class="params">([NodeID, _SvrType])</span> -&gt;</span></div><div class="line">    SupFlags = &#123;one_for_one, <span class="number">1000</span>, <span class="number">3600</span>&#125;,</div><div class="line"></div><div class="line">    Children = [</div><div class="line">        &#123;svr_scene, &#123;svr_scene, start_link, []&#125;,</div><div class="line">            permanent, <span class="number">10000</span>, worker, [svr_scene]&#125;,</div><div class="line">        &#123;svr_scene_npc, &#123;svr_scene_npc, start_link, []&#125;,</div><div class="line">            permanent, <span class="number">10000</span>, supervisor, [svr_scene_npc]&#125;,</div><div class="line">        &#123;svr_mon_create, &#123;svr_mon_create, start_link, []&#125;,</div><div class="line">            permanent, <span class="number">10000</span>, worker, [svr_mon_create]&#125;,</div><div class="line">        &#123;svr_scene_role_robot_create, &#123;svr_scene_role_robot_create, start_link, []&#125;,</div><div class="line">            permanent, <span class="number">10000</span>, supervisor, [svr_scene_role_robot_create]&#125;</div><div class="line">    ],</div><div class="line">    Extras = <span class="keyword">if</span></div><div class="line">        NodeID &gt;= ?NODE_ID_CLUSTER -&gt; <span class="comment">%% 300节点</span></div><div class="line">            [</div><div class="line">                &#123;svr_campfire, &#123;svr_campfire, start_link, []&#125;,</div><div class="line">                    permanent, <span class="number">10000</span>, worker, [svr_campfire]&#125;</div><div class="line">            ];</div><div class="line">        <span class="literal">true</span> -&gt;</div><div class="line">            []</div><div class="line">    <span class="keyword">end</span>,</div><div class="line">    &#123;ok, &#123;SupFlags, Children ++ Extras&#125;&#125;.</div></pre></td></tr></table></figure>
+<p>在svr_scene:init中调用lib_scene:load_npc</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">init</span><span class="params">([])</span> -&gt;</span></div><div class="line">    process_flag(trap_exit, true),</div><div class="line">    lib_scene:init(),</div><div class="line">    &#123;ok, <span class="number">0</span>&#125;.</div></pre></td></tr></table></figure>
+<p>在svr_scene:init中spawn出一个进程执行load_scene()去加载场景。在load_scene()中首先读取所有的场景id，获取配置中的npc列表和场景名字，加载npc。lib_scene:load_npc 代码：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%% @doc 加载NPC</span></div><div class="line"><span class="function"><span class="title">load_npc</span><span class="params">([], _, _)</span> -&gt;</span> ok;</div><div class="line"><span class="function"><span class="title">load_npc</span><span class="params">([[NpcId, X, Y] | T], SceneId, SceneName)</span> -&gt;</span></div><div class="line">    <span class="keyword">case</span> conf_npc:get(NpcId) <span class="keyword">of</span></div><div class="line">        [] -&gt;</div><div class="line">            ok;</div><div class="line">        N -&gt;</div><div class="line">            N1 = N#scene_npc&#123;</div><div class="line">                id = NpcId,</div><div class="line">                x = X,</div><div class="line">                y = Y,</div><div class="line">                scene = SceneId,</div><div class="line">                sname = SceneName</div><div class="line">            &#125;,</div><div class="line">            svr_scene_npc:insert(N1)</div><div class="line">    <span class="keyword">end</span>,</div><div class="line">    load_npc(T, SceneId, SceneName).</div></pre></td></tr></table></figure>
+<p>从配置里获取出npc的信息再在结构上添加上坐标x和y，场景id和名字。然后放到svr_scene_npc的进程字典，svr_scene_npc在上面的init中启动：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">handle_cast</span><span class="params">(&#123;insert, SceneMon&#125;, State)</span> -&gt;</span></div><div class="line">    put(SceneMon#scene_npc.id, SceneMon),</div><div class="line">    &#123;noreply, State&#125;;</div></pre></td></tr></table></figure>
+<p>然后到lib_scene_agent:start_scene(SceneID, LineID)和 svr_scene_agent:start_scene(SceneID, LineID)：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%% @doc 开启场景进程</span></div><div class="line"><span class="function"><span class="title">start_scene</span><span class="params">(SceneID, LineID)</span> -&gt;</span></div><div class="line">    <span class="keyword">case</span> dist:scene_process_pid(SceneID, LineID) <span class="keyword">of</span></div><div class="line">        Pid <span class="keyword">when</span> is_pid(Pid) -&gt;</div><div class="line">            Pid;</div><div class="line">        _ -&gt;</div><div class="line">            svr_scene_agent:start_scene(SceneID, LineID)</div><div class="line">    <span class="keyword">end</span>.</div></pre></td></tr></table></figure>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%% @doc 启动场景模块</span></div><div class="line"><span class="function"><span class="title">start_scene</span><span class="params">(SceneID, LineID)</span> -&gt;</span></div><div class="line">    <span class="keyword">case</span> conf_scene:get(SceneID) <span class="keyword">of</span></div><div class="line">        [] -&gt;</div><div class="line">            undefined;</div><div class="line">        Scene -&gt;</div><div class="line">            &#123;ok, NewScenePid&#125; = start_link([Scene, LineID]),</div><div class="line">            NewScenePid</div><div class="line">    <span class="keyword">end</span>.</div></pre></td></tr></table></figure>
+<p><strong>至于gen_server:start_link和start的区别要查查.</strong></p>
+<p>然后是svr_scene_agent的init：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%% Num:场景个数</span></div><div class="line"><span class="comment">%% WorkerId:进行标示</span></div><div class="line"><span class="comment">%% Scene:场景相关内容</span></div><div class="line"><span class="function"><span class="title">init</span><span class="params">([_Num, Scene, LineID])</span> -&gt;</span></div><div class="line">    process_flag(trap_exit, true),</div><div class="line">    ProcessName = dist:scene_process_name(Scene#scene.id, LineID),</div><div class="line">    set_process_pid(ProcessName),</div><div class="line">    erlang:send_after(<span class="number">1000</span>, self(), init_scene),</div><div class="line">    &#123;ok, Scene#scene&#123;line_id = LineID&#125;&#125;.</div></pre></td></tr></table></figure>
+<p>注册进程id与进程名，没有返回pid，用进程名来获得场景进程。所以在创建怪物哪里，将怪物的信息保存到场景中的时候，调用了svr_scene_agent:apply_cast(SceneID, LineID, CopyID, M, F, A)，用SceneID和LineID获取进程的pid时，如果不在进程字典里，会根据名字去获取再放到进程字典里</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%% @doc 获取进程pid</span></div><div class="line"><span class="function"><span class="title">set_process_pid</span><span class="params">(ProcessName)</span> -&gt;</span></div><div class="line">    dist:register(local, ProcessName, self()).</div></pre></td></tr></table></figure>
+<p>进程名是由场景id和CopyId（LineID）决定：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%% 场景管理进程名</span></div><div class="line"><span class="function"><span class="title">scene_process_name</span><span class="params">(SceneId, CopyId)</span> -&gt;</span></div><div class="line">    list_to_atom(lists:concat([<span class="string">"svr_scene_agent_"</span>, SceneId, <span class="string">"_"</span>, CopyId])).</div></pre></td></tr></table></figure>
+<p>场景进程是一个gen_server结构，State的结构：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%% 场景数据结构</span></div><div class="line"><span class="keyword">-record</span><span class="params">(scene, &#123;</span></div><div class="line">    id = <span class="number">0</span>,              <span class="comment">%% 场景ID包括资源id</span></div><div class="line">    line_id = <span class="number">1</span>,        <span class="comment">%% 线编号</span></div><div class="line">    obj_id_inc = <span class="number">1</span>,      <span class="comment">%% obj_id</span></div><div class="line">    name = &lt;&lt;&gt;&gt;,         <span class="comment">%% 场景名称</span></div><div class="line">    type = <span class="number">0</span>,            <span class="comment">%% 场景类型(0普通场景 1野外场景 2副本场景 3帮会场景 4安全场景 5竞技场景 6爬塔场景 7BOSS场景 8活动场景 9跨服场景 10本服组队副本)</span></div><div class="line">    x = <span class="number">0</span>,               <span class="comment">%% 默认开始点</span></div><div class="line">    y = <span class="number">0</span>,               <span class="comment">%% 默认开始点</span></div><div class="line">    role_num_lim = <span class="number">0</span>,    <span class="comment">%% 场景人数限制</span></div><div class="line">    elem = [],           <span class="comment">%% 场景元素</span></div><div class="line">    requirement = [],    <span class="comment">%% 进入需求</span></div><div class="line">    force_pk_state = <span class="number">0</span>,  <span class="comment">%% 强制切换PK模式 0代表没有</span></div><div class="line">    allow_pk_states = [],<span class="comment">%% 允许的PK模式</span></div><div class="line">    mask_id = <span class="number">0</span>,         <span class="comment">%% 场景移动信息数据ID</span></div><div class="line">    npc = [],</div><div class="line">    mon = [],</div><div class="line">    sid = <span class="number">0</span>,</div><div class="line">    width = <span class="number">0</span>,</div><div class="line">    height = <span class="number">0</span>,</div><div class="line">    jump = [],           <span class="comment">%% 地图可跳转点</span></div><div class="line">    flight = <span class="number">0</span>,          <span class="comment">%% 是否可以使用小飞鞋</span></div><div class="line">    effect_list = [],    <span class="comment">%% 场景buff effect_id列表</span></div><div class="line">    clean_buff = [],     <span class="comment">%% 退出场景需要清除的Buff</span></div><div class="line">    clean_skill = [],    <span class="comment">%% 退出场景需要清除的技能</span></div><div class="line">    clean_skill_cd = [], <span class="comment">%% 退出场景需要清除CD的技能</span></div><div class="line">    chat = <span class="number">0</span>,            <span class="comment">%% 是否支持场景聊天</span></div><div class="line">    revive_types = [],   <span class="comment">%% 支持的复活类型</span></div><div class="line">    team_transfer = <span class="number">0</span></div><div class="line">&#125;).</div></pre></td></tr></table></figure>
+<p>然后svr_scene_agent：init中erlang:send_after(1000, self(), <strong>init_scene</strong>)延迟调用handle_info(init_scene, State)加载怪物，在<strong>init_scene</strong>中的关键是lib_scene:copy_scene(SceneID, LineID, 0), 代码：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%% @doc 加载场景动态信息（怪物）</span></div><div class="line"><span class="function"><span class="title">copy_scene</span><span class="params">(SceneID, LineID, CopyID)</span> -&gt;</span></div><div class="line">    copy_scene(SceneID, LineID, CopyID, <span class="number">0</span>).</div><div class="line"></div><div class="line"><span class="function"><span class="title">copy_scene</span><span class="params">(SceneID, LineID, CopyID, Lv)</span> -&gt;</span></div><div class="line">    <span class="keyword">case</span> conf_scene:get(SceneID) <span class="keyword">of</span></div><div class="line">        [] -&gt;</div><div class="line">            ok;</div><div class="line">        S -&gt;</div><div class="line">            load_mon(S#scene.mon, SceneID, LineID, CopyID, Lv, <span class="number">0</span>)</div><div class="line">    <span class="keyword">end</span>.</div></pre></td></tr></table></figure>
+<p>加载怪物还分为异步和同步：</p>
+<p>先进入异步看看，在异步中执行{MonInfo, NewState} =lib_mon_create:create_mon(State, MonID, SceneID, LineID, CopyID, X, Y, Type, BroadCast, Arg)。</p>
+<p>其代码：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%% @doc 创建怪物</span></div><div class="line"><span class="function"><span class="title">create_mon</span><span class="params">(State, MonID, SceneID, LineID, CopyID, X, Y, Type, BroadCast, Arg)</span> -&gt;</span></div><div class="line">    #&#123;auto_id := UID&#125; = State,</div><div class="line">    <span class="keyword">case</span> svr_mon_behave:start([UID, MonID, SceneID, LineID, CopyID, X, Y, Type, BroadCast, Arg]) <span class="keyword">of</span></div><div class="line">        &#123;ok, Pid&#125; -&gt;</div><div class="line">            MonInfo = #&#123;</div><div class="line">                uid =&gt; UID, pid =&gt; Pid, scene_id =&gt; SceneID, line_id =&gt; LineID, copy_id =&gt; CopyID</div><div class="line">            &#125;,</div><div class="line">            set_mon_info(UID, MonInfo),</div><div class="line">            set_mon_link(Pid, UID),</div><div class="line">            &#123;MonInfo, State#&#123;auto_id =&gt; UID + <span class="number">1</span>&#125;&#125;;</div><div class="line">        _ -&gt;</div><div class="line">            &#123;undefined, State&#125;</div><div class="line">    <span class="keyword">end</span>.</div></pre></td></tr></table></figure>
+<p>关键是svr_mon_behave:start([UID, MonID, SceneID, LineID, CopyID, X, Y, Type, BroadCast, Arg])， 开启一个怪物活动进程， 每个怪物一个进程，返回一个pid， 怪物的pid。怪物的pid保存到了svr_mon_create的进程字典中。</p>
+<p>// 从场景到怪物，从遍历场景列表到遍历怪物列表，不过到现在还没有看到又给前端发协议，还是后端的初始化。</p>
+<p>在svr_mon_behave:init这里主要是返回一个State，结构是</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%% 怪物活动进程state</span></div><div class="line"><span class="keyword">-record</span><span class="params">(mon_behave, &#123;</span></div><div class="line">    att = [],                <span class="comment">%% 攻击对象[Id, Pid, AttType] AttType: 1怪物; 2角色</span></div><div class="line">    first_att = [],          <span class="comment">%% 第一个攻击怪物的对象[Id, Pid, AttType] AttType: 1怪物; 2角色， 当怪物休眠时会清除</span></div><div class="line">    minfo = [],              <span class="comment">%% 怪物信息 #mon&#123;&#125;</span></div><div class="line">    klist = [],              <span class="comment">%% 伤害列表</span></div><div class="line">    hate = [],               <span class="comment">%% 仇恨列表</span></div><div class="line">    clist = [],              <span class="comment">%% 采集列表 [&#123;Key, Pid, Time, Times&#125;]</span></div><div class="line">    ref = [],                <span class="comment">%% 普通定时器引用</span></div><div class="line">    ready_ref = [],          <span class="comment">%% 等待场景信息返回定时器引用</span></div><div class="line">    eref = [],               <span class="comment">%% 事件定时器引用</span></div><div class="line">    boss_hp_ref = [],        <span class="comment">%% 世界boss、公会boss伤害列表引用</span></div><div class="line">    create_time = <span class="number">0</span>,         <span class="comment">%% 创建时间</span></div><div class="line">    atted_time = <span class="number">0</span>,          <span class="comment">%% 被攻击的时间</span></div><div class="line">    last_att_time = <span class="number">0</span>,       <span class="comment">%% 上次攻击世间</span></div><div class="line">    last_state = none,       <span class="comment">%% 上一个状态</span></div><div class="line">    ai_extra = none,         <span class="comment">%% 额外的怪物AI参数</span></div><div class="line">    ai_tick = &#123;undefined, <span class="number">0</span>&#125; <span class="comment">%% &#123;Ref, AccTimes&#125;</span></div><div class="line">&#125;).</div></pre></td></tr></table></figure>
+<p>其中minfo的信息是读配置表和传进来的数据构建的#mon结构，则个结构有点长。</p>
+<p>其中init有一段：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%% 将怪物数据插入到场景，所以场景和怪物进程中，都有一份数据</span></div><div class="line">NewMon = NewState#mon_behave.minfo,</div><div class="line">lib_mon_api:insert_remote(NewMon, <span class="number">60</span>),</div><div class="line">lib_mon_agent:mon_created(NewMon, Arg),</div></pre></td></tr></table></figure>
+<p>lib_mon_api:insert_remote(NewMon, 60)根据SceneID和LineID获取到场景的pid。补充一下，如果获取到的场景pid是kfcenter的话，便跨界点发送到跨服中心去，<strong>之后再看看这个跨服发送</strong>。</p>
+<p>由</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">insert_remote</span><span class="params">(Mon, _TestCode)</span></span> -&gt;</div><div class="line">    svr_scene_agent:apply_cast(</div><div class="line">        Mon<span class="selector-id">#mon</span><span class="selector-class">.scene</span>,</div><div class="line">        Mon<span class="selector-id">#mon</span><span class="selector-class">.line_id</span>,</div><div class="line">        Mon<span class="selector-id">#mon</span><span class="selector-class">.copy_id</span>,</div><div class="line">        lib_mon_agent,</div><div class="line">        put_mon,</div><div class="line">        [Mon]</div><div class="line">    ).</div></pre></td></tr></table></figure>
+<p>可以知道，之后会在场景进程中执行lib_mon_agent:put_mon(Mon)将怪物的信息保存到场景上:</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%% 保存怪物数据</span></div><div class="line"><span class="function"><span class="title">put_mon</span><span class="params">(Mon)</span> -&gt;</span></div><div class="line">    <span class="keyword">case</span> get(Mon#mon.id) <span class="keyword">of</span></div><div class="line">        undefined -&gt;</div><div class="line">            save_id(Mon#mon.copy_id, Mon#mon.id),</div><div class="line">            save_to_area(Mon#mon.copy_id, Mon#mon.x, Mon#mon.y, Mon#mon.id),</div><div class="line">            put(Mon#mon.id, Mon);</div><div class="line">        _Mon -&gt;</div><div class="line">            XY1 = lib_scene_map:get_xy(Mon#mon.x, Mon#mon.y),</div><div class="line">            XY2 = lib_scene_map:get_xy(_Mon#mon.x, _Mon#mon.y),</div><div class="line">            <span class="keyword">if</span></div><div class="line">                XY1 =:= XY2 -&gt;</div><div class="line">                    skip;</div><div class="line">                <span class="literal">true</span> -&gt;</div><div class="line">                    del_to_area(_Mon#mon.copy_id, XY2, _Mon#mon.id),</div><div class="line">                    save_to_area(Mon#mon.copy_id, XY1, Mon#mon.id)</div><div class="line">            <span class="keyword">end</span>,</div><div class="line">            put(Mon#mon.id, Mon)</div><div class="line">    <span class="keyword">end</span>.</div></pre></td></tr></table></figure>
+<p>如果不存在或者xy对不上，添加到九宫格上：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%% 添加在九宫格</span></div><div class="line"><span class="function"><span class="title">save_to_area</span><span class="params">(CopyId, XY, Id)</span> -&gt;</span></div><div class="line">    <span class="keyword">case</span> get(?TABLE_AREA(?BATTLE_MON, XY, CopyId)) <span class="keyword">of</span></div><div class="line">        undefined -&gt;</div><div class="line">            D1 = maps:new(),</div><div class="line">            put(?TABLE_AREA(?BATTLE_MON, XY, CopyId), maps:put(Id, <span class="number">0</span>, D1));</div><div class="line">        D2 -&gt;</div><div class="line">            put(?TABLE_AREA(?BATTLE_MON, XY, CopyId), maps:put(Id, <span class="number">0</span>, D2))</div><div class="line">    <span class="keyword">end</span>.</div><div class="line"></div><div class="line"><span class="function"><span class="title">save_to_area</span><span class="params">(CopyId, X, Y, Id)</span> -&gt;</span></div><div class="line">    XY = lib_scene_map:get_xy(X, Y),</div><div class="line">    <span class="keyword">case</span> get(?TABLE_AREA(?BATTLE_MON, XY, CopyId)) <span class="keyword">of</span></div><div class="line">        undefined -&gt;</div><div class="line">            D1 = maps:new(),</div><div class="line">            put(?TABLE_AREA(?BATTLE_MON, XY, CopyId), maps:put(Id, <span class="number">0</span>, D1));</div><div class="line">        D2 -&gt;</div><div class="line">            put(?TABLE_AREA(?BATTLE_MON, XY, CopyId), maps:put(Id, <span class="number">0</span>, D2))</div><div class="line">    <span class="keyword">end</span>.</div></pre></td></tr></table></figure>
+<p>其实就是一个场景进程的进程字典，键是{ObjType, Id, CopyId}，值是一个保存了怪物id的map。然后之后就可以用lib_mon_agent中的get_area_mon来获取九宫格当中的怪物了。那如果怪物的移动到其他九宫格呢？<strong>之后再看看。</strong></p>
+<p>基本就是这样了，在怪物进程的初始化当中还有些操作，1.在场景进程的lib_battle_api加上属性，这个应该是和战斗相关。2.AI相关。3最后的<strong>lib_state_machine:send_event_after</strong>。之后再看看。</p>
+<p>总结一下，svr_mon_create在一开始的sup_scene的init中启动，这里保存的MonInfo中存有怪物的pid。</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/06/07/剑雨风云的场景广播算法--九宫格/" data-toggle="tooltip" data-placement="top" title="剑雨风云的场景广播算法--九宫格">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://yishenggithub.github.io/2019/06/08/剑雨风云场景启动初始化过程--后端/";
+    var disqus_url = "https://yishenggithub.github.io/2019/06/08/剑雨风云场景启动初始化过程--后端/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yisheng&#39;s Blog 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://yishenggithub.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'huangxuan.me';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://yishenggithub.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
