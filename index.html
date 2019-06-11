@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -184,6 +184,30 @@
 
 <div class="post-preview">
 
+    <a href="/2019/06/12/风云2的背包模块/">
+        <h2 class="post-title">
+            风云2的背包模块
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            从GM讲起:花点时间看看剑雨风云的背包模块，以前只是单纯地调用没有走进去看看，虽然和小武吐槽过剑雨风云的背包写得不怎么好，想新定一个背包类型的话要写太多重复代码，后来的背包模块新写了一个。
+从GM清空背包的物品开始入手去分析吧。
+GM模块prot_resolve_91100中清空背包的物品的代码:
+12345678["cleanbag"] -&gt;    #role_state&#123;......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by easom on
+        2019-06-12
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2019/06/08/剑雨风云场景启动初始化过程--后端/">
         <h2 class="post-title">
             剑雨风云场景启动初始化过程--后端
@@ -194,6 +218,28 @@
         <div class="post-content-preview">
             在游戏来逻辑节点tpl_node_logic和跨服中心节点tpl_node_kfcenter中start_scene(NodeID, SvrType)将当前节点和服务器类型传入开启场景监控树：
 123456%% @doc 开启场景监控树start_scene(NodeID, SvrType) -&gt;    &#123;ok, _&#125; = supervisor:start_chil......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by easom on
+        2019-06-08
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2019/06/08/cowboy源码阅读（4）/">
+        <h2 class="post-title">
+            cowboy源码阅读（4）
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            没有保存。。。重新写。。。
+在第3篇的里说过，在cowboy_clear的最后会调用cowboy_http:init/4, 然后再的set_timeout中设置定时器检查timeout和#state中的值。然后进入before_loop，在before_loop执行inet:setopts(Socket, [{active, once}])。所以cowboy用的是混合消息接收，套接字在这个模......
         </div>
     </a>
     <p class="post-meta">
@@ -355,48 +401,6 @@ Spring中就核心的两个类DefaultListableBeanFactory整个bean加载的核�
     <p class="post-meta">
         Posted by eason on
         2018-07-09
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/07/08/关于String的各种相等判断/">
-        <h2 class="post-title">
-            关于String的各种相等判断
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-             1234567891011String s1 = "Programming";String s2 = new String("Programming");final String s3 = "Program";final String s4 = "ming";String s5 = "Program" + "ming";String s6 = s3 + s4; //运行是才存在s6，所以不......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by eason on
-        2018-07-08
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/06/25/新的开始/">
-        <h2 class="post-title">
-            新的开始
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            一个新的开始因为把笔记本系统换到SSD上，更新博客的话要切回以前的旧系统上，暂时还没有动力去摸索怎么迁移到日用的系统上去更新博客。距离上次更新博客又过去好久了啊，在这期间期间实训结束了，去了珠海，过了一个寒假，到通莞实习，毕业设计也结束了，其中改论文的格式，跑去打印签名，准备优秀论文的二辩，尽管时间一点也不松弛，但至少也能做到不慌不忙的。所以想想大学里过得最充实舒畅的那一段时间也是准备离开校......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by eason on
-        2018-06-25
     </p>
 
 </div>
