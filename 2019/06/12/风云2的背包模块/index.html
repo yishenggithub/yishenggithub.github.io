@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          风云2的背包模块 - Yisheng的博客 | Yisheng&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://yishenggithub.github.io/2019/06/12/风云2的背包模块/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yisheng&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://yishenggithub.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#学习" title="学习">学习</a>
+                        
+                          <a class="tag" href="/tags/#源码" title="源码">源码</a>
+                        
+                    </div>
+                    <h1>风云2的背包模块</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by easom on
+                        2019-06-12
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3 id="从GM讲起"><a href="#从GM讲起" class="headerlink" title="从GM讲起:"></a>从GM讲起:</h3><p>花点时间看看剑雨风云的背包模块，以前只是单纯地调用没有走进去看看，虽然和小武吐槽过剑雨风云的背包写得不怎么好，想新定一个背包类型的话要写太多重复代码，后来的背包模块新写了一个。</p>
+<p>从GM清空背包的物品开始入手去分析吧。</p>
+<p>GM模块prot_resolve_91100中清空背包的物品的代码:</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">"cleanbag"</span>] -&gt;</span><br><span class="line">    #role_state&#123;id = RoleId&#125; = RoleState,</span><br><span class="line">    GoodsList = lib_goods_api:get_goods_list(RoleId, ?GOODS_LOC_BAG),</span><br><span class="line">    lists:foreach(<span class="keyword">fun</span>(GInfo) -&gt;</span><br><span class="line">        #goods&#123;id = GoodsId, num = GoodsNum&#125; = GInfo,</span><br><span class="line">        lib_goods_api:delete_goods_by_id2(?GOODS_LOC_BAG, GoodsId, GoodsNum, ?OPT_GM_OPERATE, RoleId)</span><br><span class="line">    <span class="keyword">end</span>, GoodsList),</span><br><span class="line">    &#123;ok, RoleState&#125;;</span><br></pre></td></tr></table></figure>
+<p>lib_goods_api:get_goods_list:</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% @doc 获取物品列表</span></span><br><span class="line"><span class="function"><span class="title">get_goods_list</span><span class="params">(RoleId, Location)</span> -&gt;</span></span><br><span class="line">   GoodsState = lib_goods_base:get_role_goods(RoleId),</span><br><span class="line">   #goods_state&#123;dict_list = GDictList&#125; = GoodsState,</span><br><span class="line">   lib_goods_util:get_goods_list(RoleId, Location, GDictList).</span><br></pre></td></tr></table></figure>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 获取玩家物品数据</span></span><br><span class="line"><span class="function"><span class="title">get_role_goods</span><span class="params">(RoleId)</span> <span class="title">when</span> <span class="title">is_integer</span><span class="params">(RoleId)</span> -&gt;</span></span><br><span class="line">   erlang:get(?ROLE_GOODS_STATE(RoleId)).</span><br></pre></td></tr></table></figure>
+<p>从GoodsState获得GDictList之后，由lib_goods_util:get_goods_list(RoleId, Location, GDictList)获得。</p>
+<p>其中 lib_goods_util:get_goods_list(RoleId, Location, GDictList). 去到lib_goods_util中去获得Location为4（背包位置）的物品列表。</p>
+<p>其中GoodsState存在进程字典当中，玩家上线的时候初始化完成：</p>
+<p>lib_goods_base.erl：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 角色上线初始化物品信息</span></span><br><span class="line"><span class="comment">%% 注意：需要在玩家进程调用</span></span><br><span class="line"><span class="function"><span class="title">init_role_goods</span><span class="params">(RoleId)</span> -&gt;</span></span><br><span class="line">	DictList = init_goods(RoleId),  <span class="comment">%% 1</span></span><br><span class="line">    BagDict = lib_goods_util:get_goods_dict_by_location(?GOODS_LOC_BAG, DictList),</span><br><span class="line">    [MaxCell, NullCells] = lib_goods_util:get_cells_info(BagDict),</span><br><span class="line">    [SmeltLv, SmeltVal] = lib_smelting:init_smelting_info(RoleId),</span><br><span class="line">    JinglianInfo = lib_jinglian:init_jinglian_info(RoleId),</span><br><span class="line">    CastingList  =lib_equip_casting:get_casting_info(RoleId),</span><br><span class="line">    GoodsState = #goods_state&#123;</span><br><span class="line">        role_id = RoleId,</span><br><span class="line">        max_cell = MaxCell,</span><br><span class="line">        null_cells = NullCells,</span><br><span class="line">        dict_list = DictList,</span><br><span class="line">        smelt_lv = SmeltLv,</span><br><span class="line">        smelt_val = SmeltVal,</span><br><span class="line">        jinglian = JinglianInfo,</span><br><span class="line">        casting = CastingList</span><br><span class="line">    &#125;,</span><br><span class="line">    save_role_goods(RoleId, GoodsState).</span><br></pre></td></tr></table></figure>
+<p>重要的是 max_cell = MaxCell, null_cells = NullCells, dict_list = DictList,这几行， 其他的感觉独立出去不要放在这里更好。</p>
+<p>对于上面的第四行init_goods(RoleId)的初始化， 就是在role_goods这张表里面拿出所有的东西出来。</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">-define</span><span class="params">(SELECT_GOODS_BY_ROLE, &lt;&lt;<span class="string">"select `id`, `role_id`, `gtype_id`, `location`, `cell`, `num`, `bind`, `stren_lv`, `stren_lucky`, `expire_time`, `star_attr`, `mark_info`, `evo_pro`, `star`, `skills`, `holy`, `sacred_type` from `role_goods` where `role_id`= ~p"</span>&gt;&gt;)</span>.</span><br></pre></td></tr></table></figure>
+<p>由lib_goods_util:make_info(goods, Info) 逐个放到到<strong>Goods</strong>这个record中。其中goods里面的一部分信息是从配置表拿的。然后再根据位置Loc， 从DictList列表找出对应的Dict， 将<strong>Goods</strong>作为值，<strong>Goods</strong>#goods.id做为键放到Dict中，再将这个Dict使用keyreplace到DictList中，然后返回，放到#goods_state中，然后put到进程字典中。</p>
+<p>前面提到了lib_goods_util:get_goods_list，这模块提供了一些对DictList的操作接口，比如get_goods_by_cell，get_goods_list，提供不同的参数，获得所需的物品信息。还有save_goods_dict_by_location来保存物品到DictList中。</p>
+<p>回到上次的GM命令中，获得背包的GoodsList后，逐个获得GoodsId和GoodsNum，然后调用</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lib_goods_api:delete_goods_by_id2(?GOODS_LOC_BAG, GoodsId, GoodsNum, ?OPT_GM_OPERATE, RoleId)</span><br></pre></td></tr></table></figure>
+<p>lib_goods_api相当与时lib_goods_util和lib_goods_base的进一步封装。在lib_goods_api获取到GDictList便调用lib_goods_util去操作GDictList。比如delete_goods_by_id2就会调用ib_goods_util:delete_goods和lib_goods_util:save_goods_dict_by_location返回NewGDictList和NewNullCells，组成新的NewGoodsState，调用lib_goods_base保存到进程字典。</p>
+<p>基本上这个就是后端物品操作的基础，其他的一些函数像强化和绑定， 更改位置的操作封装了这些操作和通知到了客户端。包括这些会在新增物品时调用，也会去操作DictList。</p>
+<p>// lib_goods_api和lib_goods_util和lib_goods_base有点容易混</p>
+<h3 id="删除单个物品："><a href="#删除单个物品：" class="headerlink" title="删除单个物品："></a>删除单个物品：</h3><p>删除单个物品的时：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 删除物品 -- 使用物品时调用</span></span><br><span class="line"><span class="function"><span class="title">use_delete_goods</span><span class="params">(GoodsInfo, [NullCells, GoodsDict])</span> -&gt;</span></span><br><span class="line">    #goods&#123;id = GoodsId, role_id = RoleId, location = Location, cell = Cell&#125; = GoodsInfo,</span><br><span class="line">    lib_goods_util:delete_goods(GoodsId),</span><br><span class="line">    NewGoodsDict = lib_goods_dict:append_dict(Location, &#123;del, goods, GoodsId&#125;, GoodsDict),</span><br><span class="line">    <span class="keyword">if</span></span><br><span class="line">        Location =:= ?GOODS_LOC_BAG -&gt;</span><br><span class="line">            lib_goods_util:notice_client_goods_info(RoleId, [GoodsInfo#goods&#123;num = <span class="number">0</span>&#125;], <span class="number">0</span>),</span><br><span class="line">            NewNullCells = lists:sort([Cell | NullCells]),</span><br><span class="line">            [NewNullCells, NewGoodsDict];</span><br><span class="line">        <span class="literal">true</span> -&gt;</span><br><span class="line">            [NullCells, NewGoodsDict]</span><br><span class="line">    <span class="keyword">end</span>.</span><br></pre></td></tr></table></figure>
+<p>执行sql，把对应那个行删除， 通知前端，返回新的NewNullCells， 和NewGoodsDict。</p>
+<p>早上看一篇博客的一段话：</p>
+<p><em>背包系统：一般也就是背包数据的更新，有两种形式：</em></p>
+<p><em>一种是无论哪块系统有道具的更新，都会发一个更新数据到前端，当然只会更新需要更新的那几个格子，这样背包所有数据只会在登陆的时候请求一次。</em></p>
+<p><em>第二种是，无论哪块系统有道具更新，都不会通知前端，前端只会在打开背包时才请求背包所有数据。比较两者，各有优缺，前者背包数据就比较平缓，不会出现一次大的更新，操作频繁。后者就不是不需要频繁的请求，只需要在打开背包时重新请求，但是背包数据过多，可能前端就要转菊花了，这是不推荐的，</em></p>
+<p>G1和S3用的是第一种。lib_goods_util:notice_client_goods_info代码：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 通知客户端更新物品信息</span></span><br><span class="line"><span class="function"><span class="title">notice_client_goods_info</span><span class="params">(RoleId, GoodsList, OpType)</span> -&gt;</span></span><br><span class="line">    NewGoodsList = [make_goods_info(GoodsInfo) || GoodsInfo &lt;- GoodsList],</span><br><span class="line">    Msg = #sc_update_goods_info&#123;src = OpType, goods_list = NewGoodsList&#125;,</span><br><span class="line">    &#123;ok, BinData&#125; = prot_msg:encode_msg(<span class="number">95013</span>, Msg),</span><br><span class="line">    lib_logic_send:send_to_role(RoleId, BinData).</span><br></pre></td></tr></table></figure>
+<h3 id="发送物品："><a href="#发送物品：" class="headerlink" title="发送物品："></a>发送物品：</h3><p>发送物品的时候有两种方式，一种是通过good_id和数量用lib_role_currency:add_items_notify发送，一种是通过dropId发送策划配好的一个或多个物品。 </p>
+<p>lib_role_currency:add_items_notify进入lib_drop_base中的send_drop，递归循环，将要发送的item逐一操作。如果是道具的话，匹配到</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 发送道具物品</span></span><br><span class="line"><span class="function"><span class="title">send_drop</span><span class="params">([&#123;?DROP_ITEM, GoodsList&#125; | L], RoleState, OpType)</span> -&gt;</span></span><br><span class="line">    lib_goods_api:give_goods2(GoodsList, OpType, RoleState),</span><br><span class="line">    send_drop(L, RoleState, OpType);</span><br></pre></td></tr></table></figure>
+<p>进入lib_goods_api的give_goods2(GoodsListT, OpType, RoleId) when is_integer(RoleId) 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> lib_goods_api:give_goods2代码：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">give_goods2</span><span class="params">(GoodsListT, OpType, RoleId)</span> <span class="title">when</span> <span class="title">is_integer</span><span class="params">(RoleId)</span> -&gt;</span></span><br><span class="line">    NowTime = time:unixtime(),</span><br><span class="line">    GoodsList = lib_goods_util:merge_same_gtype_goods(GoodsListT, []),</span><br><span class="line">    GoodsState = lib_goods_base:get_role_goods(RoleId),</span><br><span class="line">    #goods_state&#123;dict_list = GDictList, max_cell = MaxCell, null_cells = NullCells&#125; = GoodsState,</span><br><span class="line">    GoodsDict = lib_goods_util:get_goods_dict_by_location(?GOODS_LOC_BAG, GDictList),</span><br><span class="line">    F = <span class="keyword">fun</span>() -&gt;</span><br><span class="line">        ok = lib_goods_dict:start_dict(?GOODS_LOC_BAG),</span><br><span class="line">        &#123;ok, [_, _, [NewMaxCell, NewNullCells, NewGoodsDictT]]&#125; = util:list_handle(<span class="keyword">fun</span> lib_goods_base:give_goods/<span class="number">3</span>, [RoleId, NowTime, [MaxCell, NullCells, GoodsDict]], GoodsList, OpType),</span><br><span class="line">        NewGoodsDict = lib_goods_dict:handle_dict(?GOODS_LOC_BAG, NewGoodsDictT),</span><br><span class="line">        &#123;ok, [NewMaxCell, NewNullCells, NewGoodsDict]&#125;</span><br><span class="line">        <span class="keyword">end</span>,</span><br><span class="line">    <span class="keyword">case</span> lib_goods_util:transaction(F) <span class="keyword">of</span></span><br><span class="line">        &#123;ok, [NewMaxCell, NewNullCells, NewGoodsDict]&#125; -&gt;</span><br><span class="line">            NewGDictList = lib_goods_util:save_goods_dict_by_location(?GOODS_LOC_BAG, NewGoodsDict, GDictList),</span><br><span class="line">            NewGoodsState = GoodsState#goods_state&#123;dict_list = NewGDictList, max_cell = NewMaxCell, null_cells = NewNullCells&#125;,</span><br><span class="line">            lib_goods_base:save_role_goods(RoleId, NewGoodsState),</span><br><span class="line">            ok;</span><br><span class="line">        &#123;db_error, &#123;error, &#123;_, not_found&#125;&#125;&#125; -&gt;  <span class="comment">%% 物品类型不存在</span></span><br><span class="line">            ?ERROR_TOC(RoleId, ?RC_GOODS_NO_GOODS_TYPE),</span><br><span class="line">            error;</span><br><span class="line">        &#123;db_error, &#123;error, &#123;cell_num, not_enough&#125;&#125;&#125; -&gt; <span class="comment">%% 背包格子不足</span></span><br><span class="line">            ?ERROR_TOC(RoleId, ?RC_GOODS_NO_GOODS),</span><br><span class="line">            error;</span><br><span class="line">        Error -&gt;</span><br><span class="line">            log:errlog(<span class="string">"give_goods error:~p"</span>, [Error]),</span><br><span class="line">            ?ERROR_TOC(RoleId, ?RC_GOODS_OPERATE_FAIL),</span><br><span class="line">            error</span><br><span class="line">    <span class="keyword">end</span>.</span><br></pre></td></tr></table></figure>
+<p>其中上面的ok = lib_goods_dict:start_dict(?GOODS_LOC_BAG)的作用是开启一个进程字典，如果存在这个进程进程字典，就将添加和删除操作添加到这个进程字典，再调用handle_dict时取出来一次性操作。</p>
+<p>lib_goods_base写了一大堆的give_goods,  里面的大部分代码时一样的，来接收不同的参数，很冗余，看得难受。这样之后如果想定制发送的物品的一下参数，又得新写一个give_goods。感觉可以整合成一个，先定传入参数的个数， 封装好一个goods的record结构传进来就行了。为什么要多了这一操作呢，一开始想不明白，多瞄了两眼想到，好处应该是<strong>提高效率</strong>。</p>
+<p>在util:list_handle(fun lib_goods_base:give_goods/3, [RoleId, NowTime, [MaxCell, NullCells, GoodsDict]], GoodsList, OpType)中会执行多次添加操作，那如果开启了上面说的那个进程字典后就不用立即操作GoodsList来返回一个新的GoodsList，而是在handle_dict中在集中操作，不过这样有提高速度吗？我还得再了解了解。</p>
+<p>还有，</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">max_cell</span> = <span class="number">0</span>,                   %% 背包最大格子序号</span><br><span class="line"><span class="attr">null_cells</span> = [],                %% 背包空格位置</span><br></pre></td></tr></table></figure>
+<p>这两个参数，</p>
+<p>G1优化了一下，走<strong>lib_goods_api:give_goods2，</strong> 然后再走<strong>lib_goods_base:give_goods/3</strong>，S3比较sb的是物品和人物不在一个进程，所以send_drop之后要走一个：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">give_goods_by_list_asyn</span><span class="params">(RoleState, GoodsList, Place)</span> <span class="title">when</span> <span class="title">is_list</span><span class="params">(GoodsList)</span> -&gt;</span></span><br><span class="line">    Go = RoleState#role_state.goods,</span><br><span class="line">    gen_server:cast(Go#role_goods.goods_pid, &#123;'give_more', GoodsList, Place&#125;),</span><br><span class="line">    ok;</span><br></pre></td></tr></table></figure>
+<p>对物品的操作也要去到物品进程里，没有G1方便：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gen:call(RoleGoods#role_goods.goods_pid, '$gen_call', &#123;'medal_equip_wear', PS, MedalId, WearGId&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="发送物品的另一个方式："><a href="#发送物品的另一个方式：" class="headerlink" title="发送物品的另一个方式："></a>发送物品的另一个方式：</h3><p>那关于用drop_id来发送物品的部分，会先获取到drop的配置。conf_drop的结构：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% 掉落包配置结构</span></span><br><span class="line"><span class="comment">%% 物品列表格式说明(&#123;类型, 参数&#125;)：</span></span><br><span class="line"><span class="comment">%% 0 - 7 : &#123;类型, 数量&#125;;</span></span><br><span class="line"><span class="comment">%% 10(道具) : &#123;类型, [道具ID, 是否绑定(1是|0否), 限定时间(单位秒,0不限时), 数量]&#125;</span></span><br><span class="line"><span class="comment">%% 11(装备) : &#123;类型, [装备ID, 是否绑定(1是|0否), 强化等级, 数量]&#125;</span></span><br><span class="line"><span class="keyword">-record</span><span class="params">(conf_drop, &#123;</span></span><br><span class="line"><span class="params">   id = <span class="number">0</span>,                         <span class="comment">%% 掉落包类型ID</span></span></span><br><span class="line"><span class="params">   desc = &lt;&lt;&gt;&gt;,                    <span class="comment">%% 掉落包描述</span></span></span><br><span class="line"><span class="params">   give_type = <span class="number">0</span>,                  <span class="comment">%% 获得途径(需要日常限制时填写)</span></span></span><br><span class="line"><span class="params">   fix_goods_list = <span class="number">0</span> ,            <span class="comment">%% 固定物品列表</span></span></span><br><span class="line"><span class="params">   choose_times_a = [],            <span class="comment">%% 批量抽取次数列表([&#123;抽取次数,概率万分比&#125;,...])</span></span></span><br><span class="line"><span class="params">   choose_goods_list_a = [],       <span class="comment">%% 批量抽取物品列表([&#123;&#123;类型,类型参数(根据类型不同数据结构不同)&#125;,权重,最大抽取次数&#125;,...])</span></span></span><br><span class="line"><span class="params">   choose_times_b = [],            <span class="comment">%% 批量抽取次数列表([&#123;抽取次数,概率万分比&#125;,...])</span></span></span><br><span class="line"><span class="params">   choose_goods_list_b = [],       <span class="comment">%% 批量抽取物品列表([&#123;&#123;类型,类型参数&#125;,权重,最大抽取次数&#125;,...])</span></span></span><br><span class="line"><span class="params">   choose_times_c = [],            <span class="comment">%% 批量抽取次数列表([&#123;抽取次数,概率万分比&#125;,...])</span></span></span><br><span class="line"><span class="params">   choose_goods_list_c = [],       <span class="comment">%% 批量抽取物品列表([&#123;&#123;类型,类型参数&#125;,权重,最大抽取次数&#125;,...])</span></span></span><br><span class="line"><span class="params">   special_choose_times = [],      <span class="comment">%% 特殊批量抽取次数列表([&#123;抽取次数,概率万分比&#125;,...])</span></span></span><br><span class="line"><span class="params">   special_choose_goods_list = []  <span class="comment">%% 特殊批量抽取物品列表([&#123;时间类型, [&#123;&#123;类型,类型参数&#125;,权重,最大抽取次数&#125;,...]&#125;, ...])</span></span></span><br><span class="line"><span class="params">&#125;)</span>.</span><br></pre></td></tr></table></figure>
+<p>根据上面的的配置，获取到DropInfoList（物品类型， id， 数量）之后， 发送通知前端，经过合并转换，比如类型10转为goods<em>（<strong>-define(</strong>DROP_ITEM,</em> <em>10<strong>)</strong>.</em> <em>%%</em> <em>道具）</em></p>
+<p> 然后调用这个比较基础的：</p>
+<p>lib_role_currency:add_items_notify(RoleState, NewDropInfoList, GiveType, []).</p>
+<p>所以在drop掉落里是有做随机抽取的，如果这里的随机掉落完善一些，感觉一些运营活动的随机掉落直接配在这里就不需另外再配了。</p>
+<p>还有同样最终都是走lib_role_currency:add_items_notify，如果是drop发送，掉落的类型是策划配的，如果策划直接配物品id和数量， 那掉落类型OpType是后端写的。感觉还是drop的方式比较好，因为如果新增一种掉落类型的话，那用物品id的方式lib_role_currency:add_items_notify发送，所有发送的地方都要改，写出{?NEW_TYPE, [{Reward, 1}]}这种格式，再调用lib_role_currency:add_items_notify。这么想的话，应该把所有物品发送全部用DropId来发送， 由策划来配，而不是部分lib_role_currency:add_items_notify，部分DropId。</p>
+<p>之前在做图鉴的情况是，策划要记录所有产出图鉴的活动和场景，本来想新增一个类型， 但发现有两种方式发送，改动起来就麻烦了。后来就只是记了场景，场景可以直接从角色信息role_state里面拿。</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2022/04/16/test/" data-toggle="tooltip" data-placement="top" title="test">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/06/08/cowboy源码阅读（4）/" data-toggle="tooltip" data-placement="top" title="cowboy源码阅读（4）">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://yishenggithub.github.io/2019/06/12/风云2的背包模块/";
+    var disqus_url = "https://yishenggithub.github.io/2019/06/12/风云2的背包模块/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yisheng&#39;s Blog 2022 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://yishenggithub.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'huangxuan.me';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://yishenggithub.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
