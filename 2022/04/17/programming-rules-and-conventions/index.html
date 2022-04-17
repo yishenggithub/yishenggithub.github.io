@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          programming rules and conventions - Yisheng的博客 | Yisheng&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://yishenggithub.github.io/2022/04/17/programming-rules-and-conventions/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Yisheng&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://yishenggithub.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>programming rules and conventions</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by  on
+                        2022-04-17
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="Program-Development-Using-Erlang-Programming-Rules-and-Conventions"><a href="#Program-Development-Using-Erlang-Programming-Rules-and-Conventions" class="headerlink" title="Program Development Using Erlang - Programming Rules and Conventions"></a>Program Development Using Erlang - Programming Rules and Conventions</h1><p>Abstract<br>This is a description of programming rules and advise for how to write systems using Erlang.</p>
+<p>Note: This document is a preliminary document and is not complete.</p>
+<p>The requirements for the use of EBC’s “Base System” are not documented here, but must be followed at a very early design phase if the “Base System” is to be used. These requirements are documented in 1/10268-AND 10406 Uen “MAP - Start and Error Recovery”.</p>
+<p>1 Purpose</p>
+<p>This paper lists some aspects which should be taken into consideration when specifying and programming software systems using Erlang. It does not attempt to give a complete description of general specification and design activities which are independent of the use of Erlang.</p>
+<p>2 Structure and Erlang Terminology</p>
+<p>Erlang systems are divided into modules. Modules are composed of functions and attributes. Functions are either only visible inside a module or they are exported i.e. they can also be called by other functions in other modules. Attributes begin with “-“ and are placed in the beginning of a module.</p>
+<p>The work in a system designed using Erlang is done by processes. A process is a job which can use functions in many modules. Processes communicate with each other by sending messages. Processes receive messages which are sent to them, a process can decide which messages it is prepared to receive. Other messages are queued until the receiving process is prepared to receive them.</p>
+<p>A process can supervise the existence of another process by setting up a link to it. When a process terminates, it automatically sends exit signals to the process to which it is linked. The default behavior of a process receiving an exit signal is to terminate and to propagate the signal to its linked processes. A process can change this default behavior by trapping exits, this causes all exit signals sent to a process to be turned into messages.</p>
+<p>A pure function is a function that returns the same value given the same arguments regardless of the context of the call of the function. This is what we normally expect from a mathematical function. A function that is not pure is said to have side effects.</p>
+<p>Side effects typically occur if a function a) sends a message b) receives a message c) calls exit d) calls any BIF which changes a processes environment or mode of operation (e.g. get/1, put/2, erase/1, process_flag/2 etc).</p>
+<p>Warning: This document contains examples of bad code.</p>
+<p>3 SW Engineering Principles</p>
+<p>3.1 Export as few functions as possible from a module</p>
+<p>Modules are the basic code structuring entity in Erlang. A module can contain a large number of functions but only functions which are included in the export list of the module can be called from outside the module.</p>
+<p>Seen from the outside the complexity of a module depends upon the number of functions which are exported from the module. A module which exports one or two functions is usually easier to understand than a module which exports dozens of functions.</p>
+<p>Modules where the ratio of exported/non-exported functions is low are desirable in that a user of the module only needs to understand the functionality of the functions which are exported from the module.</p>
+<p>In addition, the writer or maintainer of the code in the module can change the internal structure of the module in any appropriate manner provided the external interface remains unchanged.</p>
+<p>3.2 Try to reduce intermodule dependencies</p>
+<p>A module which calls functions in many different modules will be more difficult to maintain than a module which only calls functions in a few different modules.</p>
+<p>This is because each time we make a change to a module interface, we have to check all places in the code where this module is called. Reducing the interdependencies between modules simplifies the problem of maintaining these modules.</p>
+<p>We can simplify the system structure by reducing the number of different modules which are called from a given module.</p>
+<p>Note also that it is desirable that the inter-module calling dependencies form a tree and not a cyclic graph. Example:</p>
+<p>But not</p>
+<p>3.3 Put commonly used code into libraries</p>
+<p>Commonly used code should be placed into libraries. The libraries should be collections of related functions. Great effort should be made in ensuring that libraries contain functions of the same type. Thus a library such as lists containing only functions for manipulating lists is a good choice, whereas a library, lists_and_maths containing a combination of functions for manipulating lists and for mathematics is a very bad choice.</p>
+<p>The best library functions have no side effects. Libraries with functions with side effects limit the re-usability.</p>
+<p>3.4 Isolate “tricky” or “dirty” code into separate modules</p>
+<p>Often a problem can be solved by using a mixture of clean and dirty code. Separate the clean and dirty code into separate modules.</p>
+<p>Dirty code is code that does dirty things. Example:</p>
+<p>Uses the process dictionary.<br>Uses erlang:process_info/1 for strange purposes.<br>Does anything that you are not supposed to do (but have to do).<br>Concentrate on trying to maximize the amount of clean code and minimize the amount of dirty code. Isolate the dirty code and clearly comment or otherwise document all side effects and problems associated with this part of the code.</p>
+<p>3.5 Don’t make assumptions about what the caller will do with the results of a function</p>
+<p>Don’t make assumptions about why a function has been called or about what the caller of a function wishes to do with the results.</p>
+<p>For example, suppose we call a routine with certain arguments which may be invalid. The implementer of the routine should not make any assumptions about what the caller of the function wishes to happen when the arguments are invalid.</p>
+<p>Thus we should not write code like</p>
+<p>do_something(Args) -&gt;<br>  case check_args(Args) of<br>    ok -&gt;<br>      {ok, do_it(Args)};<br>    {error, What} -&gt;<br>      String = format_the_error(What),<br>      io:format(“* error:~s\n”, [String]), %% Don’t do this<br>      error<br>  end.<br>Instead write something like:</p>
+<p>do_something(Args) -&gt;<br>  case check_args(Args) of<br>    ok -&gt;<br>      {ok, do_it(Args)};<br>    {error, What} -&gt;<br>      {error, What}<br>  end.</p>
+<p>error_report({error, What}) -&gt;<br>  format_the_error(What).<br>In the former case the error string is always printed on standard output, in the latter case an error descriptor is returned to the application. The application can now decide what to do with this error descriptor.</p>
+<p>By calling error_report/1 the application can convert the error descriptor to a printable string and print it if so required. But this may not be the desired behavior - in any case the decision as to what to do with the result is left to the caller.</p>
+<p>3.6 Abstract out common patterns of code or behavior</p>
+<p>Whenever you have the same pattern of code in two or more places in the code try to isolate this in a common function and call this function instead of having the code in two different places. Copied code requires much effort to maintain.</p>
+<p>If you see similar patterns of code (i.e. almost identical) in two or more places in the code it is worth taking some time to see if one cannot change the problem slightly to make the different cases the same and then write a small amount of additional code to describe the differences between the two.</p>
+<p>Avoid “copy” and “paste” programming, use functions!</p>
+<p>3.7 Top-down</p>
+<p>Write your program using the top-down fashion, not bottom-up (starting with details). Top-down is a nice way of successively approaching details of the implementation, ending up with defining primitive functions. The code will be independent of representation since the representation is not known when the higher levels of code are designed.</p>
+<p>3.8 Don’t optimize code</p>
+<p>Don’t optimize your code at the first stage. First make it right, then (if necessary) make it fast (while keeping it right).</p>
+<p>3.9 Use the principle of “least astonishment”</p>
+<p>The system should always respond in a manner which causes the “least astonishment” to the user - i.e. a user should be able to predict what will happen when they do something and not be astonished by the result.</p>
+<p>This has to do with consistency, a consistent system where different modules do things in a similar manner will be much easier to understand than a system where each module does things in a different manner.</p>
+<p>If you get astonished by what a function does, either your function solves the wrong problem or it has a wrong name.</p>
+<p>3.10 Try to eliminate side effects</p>
+<p>Erlang has several primitives which have side effects. Functions which use these cannot be easily re-used since they cause permanent changes to their environment and you have to know the exact state of the process before calling such routines.</p>
+<p>Write as much as possible of the code with side-effect free code.</p>
+<p>Maximize the number of pure functions.</p>
+<p>Collect together the functions which have side effect and clearly document all the side effects.</p>
+<p>With a little care most code can be written in a side-effect free manner - this will make the system a lot easier to maintain, test and understand.</p>
+<p>3.11 Don’t allow private data structure to “leak” out of a module</p>
+<p>This is best illustrated by a simple example. We define a simple module called queue - to implement queues:</p>
+<p>-module(queue).<br>-export([add/2, fetch/1]).</p>
+<p>add(Item, Q) -&gt;<br>  lists:append(Q, [Item]).</p>
+<p>fetch([H|T]) -&gt;<br>  {ok, H, T};<br>fetch([]) -&gt;<br>  empty.<br>This implements a queue as a list, unfortunately to use this the user must know that the queue is represented as a list. A typical program to use this might contain the following code fragment:</p>
+<p>NewQ = [], % Don’t do this<br>Queue1 = queue:add(joe, NewQ),<br>Queue2 = queue:add(mike, Queue1), ….<br>This is bad - since the user a) needs to know that the queue is represented as a list and b) the implementer cannot change the internal representation of the queue (this they might want to do later to provide a better version of the module).</p>
+<p>Better is:</p>
+<p>-module(queue).<br>-export([new/0, add/2, fetch/1]).</p>
+<p>new() -&gt;<br>  [].</p>
+<p>add(Item, Q) -&gt;<br>  lists:append(Q, [Item]).</p>
+<p>fetch([H|T]) -&gt;<br>  {ok, H, T};<br>fetch([]) -&gt;<br>  empty.<br>Now we can write:</p>
+<p>NewQ = queue:new(),<br>Queue1 = queue:add(joe, NewQ),<br>Queue2 = queue:add(mike, Queue1), …<br>Which is much better and corrects this problem. Now suppose the user needs to know the length of the queue, they might be tempted to write:</p>
+<p>Len = length(Queue) % Don’t do this<br>since they know that the queue is represented as a list. Again this is bad programming practice and leads to code which is very difficult to maintain and understand. If they need to know the length of the queue then a length function must be added to the module, thus:</p>
+<p>-module(queue).<br>-export([new/0, add/2, fetch/1, len/1]).</p>
+<p>new() -&gt; [].</p>
+<p>add(Item, Q) -&gt;<br>  lists:append(Q, [Item]).</p>
+<p>fetch([H|T]) -&gt;<br>  {ok, H, T}; </p>
+<p>fetch([]) -&gt;<br>  empty.</p>
+<p>len(Q) -&gt;<br>  length(Q).<br>Now the user can call queue:len(Queue) instead.</p>
+<p>Here we say that we have “abstracted out” all the details of the queue (the queue is in fact what is called an “abstract data type”).</p>
+<p>Why do we go to all this trouble? - the practice of abstracting out internal details of the implementation allows us to change the implementation without changing the code of the modules which call the functions in the module we have changed. So, for example, a better implementation of the queue is as follows:</p>
+<p>-module(queue).<br>-export([new/0, add/2, fetch/1, len/1]).</p>
+<p>new() -&gt;<br>  {[],[]}.</p>
+<p>add(Item, {X,Y}) -&gt; % Faster addition of elements<br>  {[Item|X], Y}.</p>
+<p>fetch({X, [H|T]}) -&gt;<br>  {ok, H, {X,T}}; </p>
+<p>fetch({[], []) -&gt;<br>  empty; </p>
+<p>fetch({X, []) -&gt;<br>  % Perform this heavy computation only sometimes.<br>  fetch({[],lists:reverse(X)}).</p>
+<p>len({X,Y}) -&gt;<br>  length(X) + length(Y).<br>3.12 Make code as deterministic as possible</p>
+<p>A deterministic program is one which will always run in the same manner no matter how many times the program is run. A non-deterministic program may deliver different results each time it is run. For debugging purposes it is a good idea to make things as deterministic as possible. This helps make errors reproducible.</p>
+<p>For example, suppose one process has to start five parallel processes and then check that they have started correctly, suppose further that the order in which these five are started does not matter.</p>
+<p>We could then choose to either start all five in parallel and then check that they have all started correctly but it would be better to start them one at a time and check that each one has started correctly before starting the next one.</p>
+<p>3.13 Do not program “defensively”</p>
+<p>A defensive program is one where the programmer does not “trust” the input data to the part of the system they are programming. In general one should not test input data to functions for correctness. Most of the code in the system should be written with the assumption that the input data to the function in question is correct. Only a small part of the code should actually perform any checking of the data. This is usually done when data “enters” the system for the first time, once data has been checked as it enters the system it should thereafter be assumed correct.</p>
+<p>Example:</p>
+<p>%% Args: Option is all|normal<br>get_server_usage_info(Option, AsciiPid) -&gt;<br>  Pid = list_to_pid(AsciiPid),<br>  case Option of<br>    all -&gt; get_all_info(Pid);<br>    normal -&gt; get_normal_info(Pid)<br>  end.<br>The function will crash if Option neither normal nor all, and it should do that. The caller is responsible for supplying correct input.</p>
+<p>3.14 Isolate hardware interfaces with a device driver</p>
+<p>Hardware should be isolated from the system through the use of device drivers. The device drivers should implement hardware interfaces which make the hardware appear as if they were Erlang processes. Hardware should be made to look and behave like normal Erlang processes. Hardware should appear to receive and send normal Erlang messages and should respond in the conventional manner when errors occur.</p>
+<p>3.15 Do and undo things in the same function</p>
+<p>Suppose we have a program which opens a file, does something with it and closes it later. This should be coded as:</p>
+<p>do_something_with(File) -&gt;<br>  case file:open(File, read) of,<br>    {ok, Stream} -&gt;<br>      doit(Stream),<br>      file:close(Stream) % The correct solution<br>    Error -&gt; Error<br>  end.<br>Note the symmetry in opening the file (file:open)and closing it (file:close) in the same routine. The solution below is much harder to follow and it is not obvious which file that is closed. Don’t program it like this:</p>
+<p>do_something_with(File) -&gt;<br>  case file:open(File, read) of,<br>    {ok, Stream} -&gt;<br>      doit(Stream)<br>    Error -&gt; Error<br>  end.</p>
+<p>doit(Stream) -&gt;<br>  ….,<br>  func234(…,Stream,…).<br>  …</p>
+<p>func234(…, Stream, …) -&gt;<br>  …,<br>  file:close(Stream) %% Don’t do this<br>4 Error Handling</p>
+<p>4.1 Separate error handling and normal case code</p>
+<p>Don’t clutter code for the “normal case” with code designed to handle exceptions. As far as possible you should only program the normal case. If the code for the normal case fails, your process should report the error and crash as soon as possible. Don’t try to fix up the error and continue. The error should be handled in a different process (See “Each process should only have one “role”” on page 15.).</p>
+<p>Clean separation of error recovery code and normal case code should greatly simplify the overall system design.</p>
+<p>The error logs which are generated when a software or hardware error is detected will be used at a later stage to diagnose and correct the error. A permanent record of any information that will be helpful in this process should be kept.</p>
+<p>4.2 Identify the error kernel</p>
+<p>One of the basic elements of system design is identifying which part of the system has to be correct and which part of the system does not have to be correct.</p>
+<p>In conventional operating system design the kernel of the system is assumed to be, and must be, correct, whereas all user application programs do not necessarily have to be correct. If a user application program fails this will only concern the application where the failure occurred but should not affect the integrity of the system as a whole.</p>
+<p>The first part of the system design must be to identify that part of the system which must be correct; we call this the error kernel. Often the error kernel has some kind of real-time memory resident data base which stores the state of the hardware.</p>
+<p>5 Processes, Servers and Messages</p>
+<p>5.1 Implement a process in one module</p>
+<p>Code for implementing a single process should be contained in one module. A process can call functions in any library routines but the code for the “top loop” of the process should be contained in a single module. The code for the top loop of a process should not be split into several modules - this would make the flow of control extremely difficult to understand. This does not mean that one should not make use of generic server libraries, these are for helping structuring the control flow.</p>
+<p>Conversely, code for no more than one kind of process should be implemented in a single module. Modules containing code for several different processes can be extremely difficult to understand. The code for each individual process should be broken out into a separate module.</p>
+<p>5.2 Use processes for structuring the system</p>
+<p>Processes are the basic system structuring elements. But don’t use processes and message passing when a function call can be used instead.</p>
+<p>5.3 Registered processes</p>
+<p>Registered processes should be registered with the same name as the module. This makes it easy to find the code for a process.</p>
+<p>Only register processes that should live a long time.</p>
+<p>5.4 Assign exactly one parallel process to each true concurrent activity in the system</p>
+<p>When deciding whether to implement things using sequential or parallel processes then the structure implied by the intrinsic structure of the problem should be used. The main rule is:</p>
+<p>“Use one parallel process to model each truly concurrent activity in the real world”</p>
+<p>If there is a one-to-one mapping between the number of parallel processes and the number of truly parallel activities in the real world, the program will be easy to understand.</p>
+<p>5.5 Each process should only have one “role”</p>
+<p>Processes can have different roles in the system, for example in the client-server model.</p>
+<p>As far as possible a process should only have one role, i.e. it can be a client or a server but should not combine these roles.</p>
+<p>Other roles which process might have are:</p>
+<p>Supervisor: watches other processes and restarts them if they fail.<br>Worker: a normal work process (can have errors).<br>Trusted Worker: not allowed to have errors.</p>
+<p>5.6 Use generic functions for servers and protocol handlers wherever possible</p>
+<p>In many circumstances it is a good idea to use generic server programs such as the generic server implemented in the standard libraries. Consistent use of a small set of generic servers will greatly simplify the total system structure.</p>
+<p>The same is possible for most of the protocol handling software in the system.</p>
+<p>5.7 Tag messages</p>
+<p>All messages should be tagged. This makes the order in the receive statement less important and the implementation of new messages easier.</p>
+<p>Don’t program like this:</p>
+<p>loop(State) -&gt;<br>  receive<br>    …<br>    {Mod, Funcs, Args} -&gt; % Don’t do this<br>      apply(Mod, Funcs, Args},<br>      loop(State);<br>    …<br>  end.<br>The new message {get_status_info, From, Option} will introduce a conflict if it is placed below the {Mod, Func, Args} message.</p>
+<p>If messages are synchronous, the return message should be tagged with a new atom, describing the returned message. Example: if the incoming message is tagged get_status_info, the returned message could be tagged status_info. One reason for choosing different tags is to make debugging easier.</p>
+<p>This is a good solution:</p>
+<p>loop(State) -&gt;<br>  receive<br>    …<br>    {execute, Mod, Funcs, Args} -&gt; % Use a tagged message.<br>      apply(Mod, Funcs, Args},<br>      loop(State);<br>    {get_status_info, From, Option} -&gt;<br>      From ! {status_info, get_status_info(Option, State)},<br>      loop(State);<br>    …<br>  end.<br>5.8 Flush unknown messages</p>
+<p>Every server should have an Other alternative in at least one receive statement. This is to avoid filling up message queues. Example:</p>
+<p>main_loop() -&gt;<br>  receive<br>    {msg1, Msg1} -&gt;<br>      …,<br>      main_loop();<br>    {msg2, Msg2} -&gt;<br>      …,<br>      main_loop();<br>    Other -&gt; % Flushes the message queue.<br>      error_logger:error_msg(<br>          “Error: Process ~w got unknown msg ~w~n.”,<br>          [self(), Other]),<br>      main_loop()<br>  end.<br>5.9 Write tail-recursive servers</p>
+<p>All servers must be tail-recursive, otherwise the server will consume memory until the system runs out of it.</p>
+<p>Don’t program like this:</p>
+<p>loop() -&gt;<br>  receive<br>    {msg1, Msg1} -&gt;<br>      …,<br>      loop();<br>    stop -&gt;<br>      true;<br>    Other -&gt;<br>      error_logger:log({error, {process_got_other, self(), Other}}),<br>      loop()<br>  end,<br>  io:format(“Server going down”).                % Don’t do this!<br>                % This is NOT tail-recursive<br>This is a correct solution:</p>
+<p>loop() -&gt;<br>  receive<br>    {msg1, Msg1} -&gt;<br>      …,<br>      loop();<br>    stop -&gt;<br>      io:format(“Server going down”);<br>    Other -&gt;<br>      error_logger:log({error, {process_got_other, self(), Other}}),<br>      loop()<br>  end. % This is tail-recursive</p>
+<p>If you use some kind of server library, for example generic, you automatically avoid doing this mistake.</p>
+<p>5.10 Interface functions</p>
+<p>Use functions for interfaces whenever possible, avoid sending messages directly. Encapsulate message passing into interface functions. There are cases where you can’t do this.</p>
+<p>The message protocol is internal information and should be hidden to other modules.</p>
+<p>Example of interface function:</p>
+<p>-module(fileserver).<br>-export([start/0, stop/0, open_file/1, …]).</p>
+<p>open_file(FileName) -&gt;<br>  fileserver ! {open_file_request, FileName},<br>  receive<br>    {open_file_response, Result} -&gt; Result<br>  end.</p>
+<p>…<code>…</code></p>
+<p>5.11 Time-outs</p>
+<p>Be careful when using after in receive statements. Make sure that you handle the case when the message arrives later (See “Flush unknown messages” on page 16.).</p>
+<p>5.12 Trapping exits</p>
+<p>As few processes as possible should trap exit signals. Processes should either trap exits or they should not. It is usually very bad practice for a process to “toggle” trapping exits.</p>
+<p>6 Various Erlang Specific Conventions</p>
+<p>6.1 Use records as the principle data structure</p>
+<p>Use records as the principle data structure. A record is a tagged tuple and was introduced in Erlang version 4.3 and thereafter (see EPK/NP 95:034). It is similar to struct in C or record in Pascal.</p>
+<p>If the record is to be used in several modules, its definition should be placed in a header file (with suffix .hrl) that is included from the modules. If the record is only used from within one module, the definition of the record should be in the beginning of the file the module is defined in.</p>
+<p>The record features of Erlang can be used to ensure cross module consistency of data structures and should therefore be used by interface functions when passing data structures between modules.</p>
+<p>6.2 Use selectors and constructors</p>
+<p>Use selectors and constructors provided by the record feature for managing instances of records. Don’t use matching that explicitly assumes that the record is a tuple. Example:</p>
+<p>demo() -&gt;<br>  P = #person{name = “Joe”, age = 29},</p>
+<p>  #person{name = Name1} = P,% Use matching, or…<br>  Name2 = P#person.name. % use the selector like this.<br>Don’t program like this:</p>
+<p>demo() -&gt;<br>  P = #person{name = “Joe”, age = 29},<br>  {person, Name, _Age, _Phone, _Misc} = P. % Don’t do this<br>6.3 Use tagged return values</p>
+<p>Use tagged return values.</p>
+<p>Don’t program like this:</p>
+<p>keysearch(Key, [{Key, Value}|_Tail]) -&gt;<br>  Value; %% Don’t return untagged values!<br>keysearch(Key, [{_WrongKey, _WrongValue} | Tail]) -&gt;<br>  keysearch(Key, Tail);<br>keysearch(Key, []) -&gt;<br>  false.<br>Then the {Key, Value} cannot contain the false value. This is the correct solution:</p>
+<p>keysearch(Key, [{Key, Value}|_Tail]) -&gt;<br>  {value, Value}; %% Correct. Return a tagged value.<br>keysearch(Key, [{_WrongKey, _WrongValue} | Tail]) -&gt;<br>  keysearch(Key, Tail);<br>keysearch(Key, []) -&gt;<br>  false.<br>6.4 Use catch and throw with extreme care</p>
+<p>Do not use catch and throw unless you know exactly what you are doing! Use catch and throw as little as possible.</p>
+<p>Catch and throw can be useful when the program handles complicated and unreliable input (from the outside world, not from your own reliable program) that may cause errors in many places deeply within the code. One example is a compiler.</p>
+<p>6.5 Use the process dictionary with extreme care</p>
+<p>Do not use get and put etc. unless you know exactly what you are doing! Use get and put etc. as little as possible.</p>
+<p>A function that uses the process dictionary can be rewritten by introducing a new argument.</p>
+<p>Example:<br>Don’t program like this:</p>
+<p>tokenize([H|T]) -&gt;<br>  …;<br>tokenize([]) -&gt;<br>  case get_characters_from_device(get(device)) of % Don’t use get/1!<br>    eof -&gt; [];<br>    {value, Chars} -&gt;<br>      tokenize(Chars)<br>  end.<br>The correct solution:</p>
+<p>tokenize(_Device, [H|T]) -&gt;<br>  …;<br>tokenize(Device, []) -&gt;<br>  case get_characters_from_device(Device) of     % This is better<br>    eof -&gt; [];<br>    {value, Chars} -&gt;<br>      tokenize(Device, Chars)<br>  end.<br>The use of get and put will cause a function to behave differently when called with the same input at different occasions. This makes the code hard to read since it is non-deterministic. Debugging will be more complicated since a function using get and put is a function of not only of its argument, but also of the process dictionary. Many of the run time errors in Erlang (for example bad_match) include the arguments to a function, but never the process dictionary.</p>
+<p>6.6 Don’t use import</p>
+<p>Don’t use -import, using it makes the code harder to read since you cannot directly see in what module a function is defined. Use exref (Cross Reference Tool) to find module dependencies.</p>
+<p>6.7 Exporting functions</p>
+<p>Make a distinction of why a function is exported. A function can be exported for the following reasons (for example):</p>
+<p>It is a user interface to the module.<br>It is an interface function for other modules.<br>It is called from apply, spawn etc. but only from within its module.<br>Use different -export groupings and comment them accordingly. Example:</p>
+<p>%% user interface<br>-export([help/0, start/0, stop/0, info/1]).</p>
+<p>%% intermodule exports<br>-export([make_pid/1, make_pid/3]).<br>-export([process_abbrevs/0, print_info/5]).</p>
+<p>%% exports for use within module only<br>-export([init/1, info_log_impl/1]).</p>
+<p>7 Specific Lexical and Stylistic Conventions</p>
+<p>7.1 Don’t write deeply nested code</p>
+<p>Nested code is code containing case/if/receive statements within other case/if/receive statements. It is bad programming style to write deeply nested code - the code has a tendency to drift across the page to the right and soon becomes unreadable. Try to limit most of your code to a maximum of two levels of indentation. This can be achieved by dividing the code into shorter functions.</p>
+<p>7.2 Don’t write very large modules</p>
+<p>A module should not contain more than 400 lines of source code. It is better to have several small modules than one large one.</p>
+<p>7.3 Don’t write very long functions</p>
+<p>Don’t write functions with more than 15 to 20 lines of code. Split large function into several smaller ones. Don’t solve the problem by writing long lines.</p>
+<p>7.4 Don’t write very long lines</p>
+<p>Don’t write very long lines. A line should not have more than 80 characters. (It will for example fit into an A4 page.)</p>
+<p>In Erlang 4.3 and thereafter string constants will be automatically concatenated. Example:</p>
+<p>io:format(“Name: ~s, Age: ~w, Phone: ~w ~n”<br>      “Dictionary: ~w.~n”, [Name, Age, Phone, Dict])<br>7.5 Variable names</p>
+<p>Choose meaningful variable names - this is very difficult.</p>
+<p>If a variable name consists of several words, use “_” or a capitalized letter to separate them. Example: My_variable or MyVariable.</p>
+<p>Avoid using “<em>“ as don’t care variable, use variables beginning with “</em>“ instead. Example: _Name. If you at a later stage need the value of the variable, you just remove the leading underscore. You will not have problem finding what underscore to replace and the code will be easier to read.</p>
+<p>7.6 Function names</p>
+<p>The function name must agree exactly with what the function does. It should return the kind of arguments implied by the function name. It should not surprise the reader. Use conventional names for conventional functions (start, stop, init, main_loop).</p>
+<p>Functions in different modules that solves the same problem should have the same name. Example: Module:module_info().</p>
+<p>Bad function names is one of the most common programming errors - good choice of names is very difficult!</p>
+<p>Some kind of naming convention is very useful when writing lots of different functions. For example, the name prefix “is_” could be used to signify that the function in question returns the atom true or false.</p>
+<p>is_…() -&gt; true | false<br>check_…() -&gt; {ok, …} | {error, …}<br>7.7 Module names</p>
+<p>Erlang has a flat module structure (i.e. there are not modules within modules). Often, however, we might like to simulate the effect of a hierarchical module structure. This can be done with sets of related modules having the same module prefix.</p>
+<p>If, for example, an ISDN handler is implemented using five different and related modules. These module should be given names such as:</p>
+<p>isdn_init<br>isdn_partb<br>isdn_…<br>7.8 Format programs in a consistent manner</p>
+<p>A consistent programming style will help you, and other people, to understand your code. Different people have different styles concerning indentation, usage of spaces etc.</p>
+<p>For example you might like to write tuples with a single comma between the elements:</p>
+<p>{12,23,45}<br>Other people might use a comma followed by a blank:</p>
+<p>{12, 23, 45}<br>Once you have adopted style - stick to it.</p>
+<p>Within a larger project, the same style should be used in all parts.</p>
+<p>8 Documenting Code</p>
+<p>8.1 Attribute code</p>
+<p>You must always correctly attribute all code in the module header. Say where all ideas contributing to the module came from - if your code was derived from some other code say where you got this code from and who wrote it.</p>
+<p>Never steal code - stealing code is taking code from some other module editing it and forgetting to say who wrote the original.</p>
+<p>Examples of useful attributes are:</p>
+<p>-revision(‘Revision: 1.14 ‘).<br>-created(‘Date: 1995/01/01 11:21:11 ‘).<br>-created_by(‘eklas@erlang’).<br>-modified(‘Date: 1995/01/05 13:04:07 ‘).<br>-modified_by(‘mbj@erlang’).<br>8.2 Provide references in the code to the specifications</p>
+<p>Provide cross references in the code to any documents relevant to the understanding of the code. For example, if the code implements some communication protocol or hardware interface give an exact reference with document and page number to the documents that were used to write the code.</p>
+<p>8.3 Document all the errors</p>
+<p>All errors should be listed together with an English description of what they mean in a separate document (See “Error Messages” on page 32.)</p>
+<p>By errors we mean errors which have been detected by the system.</p>
+<p>At a point in your program where you detect a logical error call the error logger thus:</p>
+<p>error_logger:error_msg(Format, {Descriptor, Arg1, Arg2, ….})<br>And make sure that the line {Descriptor, Arg1,…} is added to the error message documents.</p>
+<p>8.4 Document all the principle data structures in messages</p>
+<p>Use tagged tuples as the principle data structure when sending messages between different parts of the system.</p>
+<p>The record features of Erlang (introduced in Erlang versions 4.3 and thereafter) can be used to ensure cross module consistency of data structures.</p>
+<p>An English description of all these data structure should be documented (See “Message Descriptions” on page 32.).</p>
+<p>8.5 Comments</p>
+<p>Comments should be clear and concise and avoid unnecessary wordiness. Make sure that comments are kept up to date with the code. Check that comments add to the understanding of the code. Comments should be written in English.</p>
+<p>Comments about the module shall be without indentation and start with three percent characters (%%%), (See “File Header, description” on page 29.).</p>
+<p>Comments about a function shall be without indentation and start with two percent characters (%%), (See “Comment each function” on page 27.).</p>
+<p>Comments within Erlang code shall start with one percent character (%). If a line only contains a comment, it shall be indented as Erlang code. This kind of comment shall be placed above the statement it refers to. If the comment can be placed at the same line as the statement, this is preferred.</p>
+<p>%% Comment about function<br>some_useful_functions(UsefulArgugument) -&gt;<br>  another_functions(UsefulArgugument),    % Comment at end of line<br>  % Comment about complicated_stmnt at the same level of indentation<br>  complicated_stmnt,<br>……</p>
+<p>8.6 Comment each function</p>
+<p>The important things to document are:</p>
+<p>The purpose of the function.<br>The domain of valid inputs to the function. That is, data structures of the arguments to the functions together with their meaning.<br>The domain of the output of the function. That is, all possible data structures of the return value together with their meaning.<br>If the function implements a complicated algorithm, describe it.<br>The possible causes of failure and exit signals which may be generated by exit/1, throw/1 or any non-obvious run time errors. Note the difference between failure and returning an error.<br>Any side effect of the function.<br>Example:</p>
+<p>%%———————————————————————-<br>%% Function: get_server_statistics/2<br>%% Purpose: Get various information from a process.<br>%% Args:   Option is normal|all.<br>%% Returns: A list of {Key, Value}<br>%%     or {error, Reason} (if the process is dead)<br>%%———————————————————————-<br>get_server_statistics(Option, Pid) when pid(Pid) -&gt;<br>  ……<br>8.7 Data structures</p>
+<p>The record should be defined together with a plan text description. Example:</p>
+<p>%% File: my_data_structures.h</p>
+<p>%%———————————————————————<br>%% Data Type: person<br>%% where:<br>%%    name: A string (default is undefined).<br>%%    age: An integer (default is undefined).<br>%%    phone: A list of integers (default is []).<br>%%    dict:     A dictionary containing various information about the person.<br>%%       A {Key, Value} list (default is the empty list).<br>%%———————————————————————-<br>-record(person, {name, age, phone = [], dict = []}).<br>8.8 File headers, copyright</p>
+<p>Each file of source code must start with copyright information, for example:</p>
+<p>%%%———————————————————————<br>%%% Copyright Ericsson Telecom AB 1996<br>%%%<br>%%% All rights reserved. No part of this computer programs(s) may be<br>%%% used, reproduced,stored in any retrieval system, or transmitted,<br>%%% in any form or by any means, electronic, mechanical, photocopying,<br>%%% recording, or otherwise without prior written permission of<br>%%% Ericsson Telecom AB.<br>%%%——————————————————————— </p>
+<p>8.9 File headers, revision history</p>
+<p>Each file of source code must be documented with its revision history which shows who has been working with the files and what they have done to it.</p>
+<p>%%%———————————————————————<br>%%% Revision History<br>%%%———————————————————————<br>%%% Rev PA1 Date 960230 Author Fred Bloggs (ETXXXXX)<br>%%% Intitial pre release. Functions for adding and deleting foobars<br>%%% are incomplete<br>%%%———————————————————————<br>%%% Rev A Date 960230 Author Johanna Johansson (ETXYYY)<br>%%% Added functions for adding and deleting foobars and changed<br>%%% data structures of foobars to allow for the needs of the Baz<br>%%% signalling system<br>%%%———————————————————————<br>8.10 File Header, description</p>
+<p>Each file must start with a short description of the module contained in the file and a brief description of all exported functions.</p>
+<p>%%%———————————————————————<br>%%% Description module foobar_data_manipulation<br>%%%———————————————————————<br>%%% Foobars are the basic elements in the Baz signalling system. The<br>%%% functions below are for manipulating that data of foobars and for<br>%%% etc etc etc<br>%%%———————————————————————<br>%%% Exports<br>%%%———————————————————————<br>%%% create_foobar(Parent, Type)<br>%%%   returns a new foobar object<br>%%%   etc etc etc<br>%%%———————————————————————<br>If you know of any weakness, bugs, badly tested features, make a note of them in a special comment, don’t try to hide them. If any part of the module is incomplete, add a special comment. Add comments about anything which will be of help to future maintainers of the module.If the product of which the module you are writing is a success, it may still be changed and improved in ten years time by someone you may never meet.</p>
+<p>8.11 Do not comment out old code - remove it</p>
+<p>Add a comment in the revision history to that effect. Remember the source code control system will help you!</p>
+<p>8.12 Use a source code control system</p>
+<p>All non trivial projects must use a source code control system such as RCS, CVS or Clearcase to keep track of all modules.</p>
+<p>9 The Most Common Mistakes:</p>
+<p>Writing functions which span many pages (See “Don’t write very long functions” on page 23.).<br>Writing functions with deeply nested if’s receive’s, case’s etc (See “Don’t write deeply nested code” on page 23.).<br>Writing badly typed functions (See “Use tagged return values” on page 19.).<br>Function names which do not reflect what the functions do (See “Function names” on page 24.).<br>Variable names which are meaningless (See “Variable names” on page 23.).<br>Using processes when they are not needed (See “Assign exactly one parallel process to each true concurrent activity in the system” on page 14.).<br>Badly chosen data structures (Bad representations).<br>Bad comments or no comments at all (always document arguments and return value).<br>Unindented code.<br>Using put/get (See “Use the process dictionary with extreme care” on page 20.).<br>No control of the message queues (See “Flush unknown messages” on page 16. and See “Time-outs” on page 18.).<br>10 Required Documents</p>
+<p>This section describes some of the system level documents which are necessary for designing and maintaining system programmed using Erlang.</p>
+<p>10.1 Module Descriptions</p>
+<p>One chapter per module. Contains description of each module, and all exported functions as follows:</p>
+<p>the meaning and data structures of the arguments to the functions<br>the meaning and data structure of the return value.<br>the purpose of the function<br>the possible causes of failure and exit signals which may be generated by explicit calls to exit/1.<br>Format of document to be defined later:</p>
+<p>10.2 Message Descriptions</p>
+<p>The format of all inter-process messages except those defined inside one module.</p>
+<p>Format of document to be defined later:</p>
+<p>10.3 Process</p>
+<p>Description of all registered servers in the system and their interface and purpose.</p>
+<p>Description of the dynamic processes and their interfaces.</p>
+<p>Format of document to be defined later:</p>
+<p>10.4 Error Messages</p>
+<p>Description of error messages</p>
+<p>Format of document to be defined later:</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2022/04/17/那些年之elang与设计模式/" data-toggle="tooltip" data-placement="top" title="那些年之Erlang与设计模式">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://yishenggithub.github.io/2022/04/17/programming-rules-and-conventions/";
+    var disqus_url = "https://yishenggithub.github.io/2022/04/17/programming-rules-and-conventions/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yisheng&#39;s Blog 2022 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://yishenggithub.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'huangxuan.me';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://yishenggithub.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
