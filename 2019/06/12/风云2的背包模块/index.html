@@ -193,7 +193,7 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="从GM讲起"><a href="#从GM讲起" class="headerlink" title="从GM讲起:"></a>从GM讲起:</h3><p>花点时间看看剑雨风云的背包模块，以前只是单纯地调用没有走进去看看，虽然和小武吐槽过剑雨风云的背包写得不怎么好，想新定一个背包类型的话要写太多重复代码，后来的背包模块新写了一个。</p>
+                <h3 id="从GM讲起"><a href="#从GM讲起" class="headerlink" title="从GM讲起:"></a>从GM讲起:</h3><p>花点时间看看剑雨风云的背包模块，以前只是单纯地调用没有走进去看看，虽然和小武吐槽过剑雨风云的背包写得不怎么好，想新定一个背包类型的话要写太多重复代码，听说后来的背包模块新写了。</p>
 <p>从GM清空背包的物品开始入手去分析吧。</p>
 <p>GM模块prot_resolve_91100中清空背包的物品的代码:</p>
 <figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">"cleanbag"</span>] -&gt;</span><br><span class="line">    #role_state&#123;id = RoleId&#125; = RoleState,</span><br><span class="line">    GoodsList = lib_goods_api:get_goods_list(RoleId, ?GOODS_LOC_BAG),</span><br><span class="line">    lists:foreach(<span class="keyword">fun</span>(GInfo) -&gt;</span><br><span class="line">        #goods&#123;id = GoodsId, num = GoodsNum&#125; = GInfo,</span><br><span class="line">        lib_goods_api:delete_goods_by_id2(?GOODS_LOC_BAG, GoodsId, GoodsNum, ?OPT_GM_OPERATE, RoleId)</span><br><span class="line">    <span class="keyword">end</span>, GoodsList),</span><br><span class="line">    &#123;ok, RoleState&#125;;</span><br></pre></td></tr></table></figure>

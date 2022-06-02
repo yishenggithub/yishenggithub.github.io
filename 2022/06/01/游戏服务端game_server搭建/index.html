@@ -13,11 +13,11 @@
 
     <title>
         
-          Yisheng的博客 | Yisheng&#39;s Blog
+          尝试用rabar3搭建一个erlang游戏服务端 - Yisheng的博客 | Yisheng&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://yishenggithub.github.io/">
+    <link rel="canonical" href="https://yishenggithub.github.io/2022/06/01/游戏服务端game_server搭建/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,327 +147,154 @@
 
 
     <!-- Main Content -->
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://yishenggithub.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>Yisheng&#39;s Blog</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading"></span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#rebar3" title="rebar3">rebar3</a>
+                        
+                          <a class="tag" href="/tags/#erlang" title="erlang">erlang</a>
+                        
+                    </div>
+                    <h1>尝试用rabar3搭建一个erlang游戏服务端</h1>
+                    <h2 class="subheading">rebar3</h2>
+                    <span class="meta">
+                        Posted by eason on
+                        2022-06-01
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
-
-<!-- USE SIDEBAR -->
     <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                <!-- Main Content -->
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
+                
 
-<div class="post-preview">
+                <hr>
 
-    <a href="/2022/06/01/游戏服务端game_server搭建/">
-        <h2 class="post-title">
-            尝试用rabar3搭建一个erlang游戏服务端
-        </h2>
-        <h3 class="post-subtitle">
-            rebar3
-        </h3>
-        <div class="post-content-preview">
-            ...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by eason on
-        2022-06-01
-    </p>
+                
 
-</div>
-<hr>
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2022/06/01/git的使用和内部探索/" data-toggle="tooltip" data-placement="top" title="git的使用和内部探索">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
 
-<div class="post-preview">
+                
 
-    <a href="/2022/06/01/git的使用和内部探索/">
-        <h2 class="post-title">
-            git的使用和内部探索
-        </h2>
-        <h3 class="post-subtitle">
-            git的使用和内部探索
-        </h3>
-        <div class="post-content-preview">
-            ...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by eason on
-        2022-06-01
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2022/05/25/wsl/">
-        <h2 class="post-title">
-            开发环境之WSL使用指北
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            ...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by  on
-        2022-05-25
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2022/04/30/关于Property-Base Testing/">
-        <h2 class="post-title">
-            学习Property-Base Testing
-        </h2>
-        <h3 class="post-subtitle">
-            一种很酷，高投资高回报，高天花板的测试方法
-        </h3>
-        <div class="post-content-preview">
-            学习Property-Base TestingProperty-Base Testing，跟传统的单元测试比起来没有那么流行，相关资料也不多，但初步了解了一下感觉很有意思，如果能运用到项目中的话，威力应该蛮大的。
-用少量的测试代码去发现难以发现的bug，甚至是经过测试和生产环境验证的代码。和TDD比起来，TDD更多是设计代码去达到预期， property-based testing则是探索程......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by  on
-        2022-04-30
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2022/04/17/programming-rules-and-conventions/">
-        <h2 class="post-title">
-            programming rules and conventions
-        </h2>
-        <h3 class="post-subtitle">
-            读Erlang的编程规范笔记
-        </h3>
-        <div class="post-content-preview">
-            读Erlang的编程规范笔记
-Program Development Using ErlangAbstractThis is a description of programming rules and advise for how to write systems using Erlang.
-Note: This document is a preliminary document and......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by  on
-        2022-04-17
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2022/04/17/那些年之elang与设计模式/">
-        <h2 class="post-title">
-            那些年之Erlang与设计模式
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            设计模式与Erlang最近想系统地学习一下设计模式，虽然挺久没有面向对象编程了。学以致用，使用Erlang开发项目也有段时间了，结合项目来做个总结。平时在无意中肯定也用到了不少，只是没有总结过。也存在一些没有解决的问题，看能不能得到一些思路，将设计模式运用到实际的开发中，无论是现在还是之后。由于设计模式最初的提出更多是针对面向对象的编程方式，而Erlang是面向进程和面向模块的编程，本身就是......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by  on
-        2022-04-17
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/06/12/风云2的背包模块/">
-        <h2 class="post-title">
-            风云2的背包模块
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            从GM讲起:花点时间看看剑雨风云的背包模块，以前只是单纯地调用没有走进去看看，虽然和小武吐槽过剑雨风云的背包写得不怎么好，想新定一个背包类型的话要写太多重复代码，听说后来的背包模块新写了。
-从GM清空背包的物品开始入手去分析吧。
-GM模块prot_resolve_91100中清空背包的物品的代码:
-12345678["cleanbag"] -&gt;    #role_state&#123;......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by easom on
-        2019-06-12
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/06/08/cowboy源码阅读（4）/">
-        <h2 class="post-title">
-            cowboy源码阅读（4）
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            没有保存。。。重新写。。。
-在第3篇的里说过，在cowboy_clear的最后会调用cowboy_http:init/4, 然后再的set_timeout中设置定时器检查timeout和#state中的值。然后进入before_loop，在before_loop执行inet:setopts(Socket, [{active, once}])。所以cowboy用的是混合消息接收，套接字在这个模......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by easom on
-        2019-06-08
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/06/08/剑雨风云场景启动初始化过程--后端/">
-        <h2 class="post-title">
-            剑雨风云场景启动初始化过程--后端
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            在游戏来逻辑节点tpl_node_logic和跨服中心节点tpl_node_kfcenter中start_scene(NodeID, SvrType)将当前节点和服务器类型传入开启场景监控树：
-123456%% @doc 开启场景监控树start_scene(NodeID, SvrType) -&gt;    &#123;ok, _&#125; = supervisor:start_chil......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by easom on
-        2019-06-08
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/06/07/剑雨风云的场景广播算法--九宫格/">
-        <h2 class="post-title">
-            剑雨风云的场景广播算法--九宫格
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            剑雨风云的场景广播算法–九宫格http://blog.chinaunix.net/uid-429659-id-5658868.html
-看了一下这篇文章里对九宫格方法的介绍，结合图片，算是很简单易懂了。
-然后看了一下剑雨风云里场景广播算法的实现，也是一样的原理。
-根据每张地图实际大小，分成一个个固定大小的格子，并从左到右赋予编号，每个格子有一样的长和高。 然后就可以根据角色的坐标（x，y）坐......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by easom on
-        2019-06-07
-    </p>
-
-</div>
-<hr>
-
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-    
-        <li class="next">
-            <a href="/page/2/">Older Posts &rarr;</a>
-        </li>
-    
-</ul>
-
-
-
-                <!-- 如果开启评论功能 -->
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
                 
 
             </div>
+    <!-- Side Catalog Container -->
+        
+
     <!-- Sidebar Container -->
+
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-
-                        
-                            <img src="/img/avatar.jpg" />
-                        
-
-                        
-
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            
-
-                            
-
-                            
-
-                            
-                            
-                            
-                            
-                        </ul>
-                    </div>
-                </section>
-                
                 <!-- Friends Blog -->
                 
             </div>
-        
+
+        </div>
     </div>
-</div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "https://yishenggithub.github.io/2022/06/01/游戏服务端game_server搭建/";
+    var disqus_url = "https://yishenggithub.github.io/2022/06/01/游戏服务端game_server搭建/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
