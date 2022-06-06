@@ -193,7 +193,7 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>没有保存。。。重新写。。。</p>
+                <p>没有保存，重新写。。。</p>
 <p>在第3篇的里说过，在cowboy_clear的最后会调用cowboy_http:init/4, 然后再的set_timeout中设置定时器检查timeout和#state中的值。然后进入before_loop，在before_loop执行inet:setopts(Socket, [{active, once}])。所以cowboy用的是混合消息接收，套接字在这个模式下虽然是主动的，但只针对一个消息。当控制进程收到一个消息后，必须显式调用inet:setopts才能重启下一个消息的接收，在此之前系统会处于阻塞状态。</p>
 <p>之后进入loop，在这里终于看到了receive这个关键字。在这里接收到{OK, Socket, Data} 后，调用parse(&lt;&lt; Buffer/binary, Data/binary &gt;&gt;, State1)对Http进行解析。</p>
 <p>先看一下record结构#state中的in_state字段的定义:</p>

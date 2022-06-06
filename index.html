@@ -184,15 +184,66 @@
 
 <div class="post-preview">
 
-    <a href="/2022/06/01/游戏服务端game_server搭建/">
+    <a href="/2022/06/06/就这一次弄懂MySQL吧之实践补充/">
         <h2 class="post-title">
-            尝试用rabar3搭建一个erlang游戏服务端
+            就这一次弄懂MySQL吧之实践补充
         </h2>
         <h3 class="post-subtitle">
-            rebar3
+            
         </h3>
         <div class="post-content-preview">
-            ...
+            MySQL选择错索引原因 数据频繁增删的时候，导致统计信息不准确， 根据区分度，索引上不同的值越多区分度越好。解决 analyze table ； force index  ； 修改查询语句，增删索引。
+考虑主键索引占用空间
+普通索引和唯一索引的区别主要在于更新的时候，普通索引不用做判断，更快。查询几乎没有区别，因为会按片加载到内存。
+change buffer 和 redo
+？之前看是自增......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by  on
+        2022-06-06
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2022/06/06/就这一次弄懂MySQL/">
+        <h2 class="post-title">
+            就这一次弄懂MySQL吧
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            MySQL总是绕不开的，作为一个迭代了很多年的解决方案，有很多设计方法也值得借鉴。
+1 
+Mysql分为客户端，server层和引擎层。引擎层有innodb, myisam等引擎。
+默认使用innodb，因为支持事务，支持行级锁。
+Server层负责tcp连接，验证，权限，语句分析和优化。Server层的缓存在之后的版本已经取消，查询的时候会在引擎层优先读内存，如果在的话，否则查询硬盘再放到......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by  on
+        2022-06-06
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2022/06/01/git的使用和内部探索/">
+        <h2 class="post-title">
+            git的使用方式改进和内部原理探索
+        </h2>
+        <h3 class="post-subtitle">
+            git的使用和内部探索
+        </h3>
+        <div class="post-content-preview">
+            git是个非常强大的实用的工具。
+...
         </div>
     </a>
     <p class="post-meta">
@@ -205,12 +256,12 @@
 
 <div class="post-preview">
 
-    <a href="/2022/06/01/git的使用和内部探索/">
+    <a href="/2022/06/01/游戏服务端game_server搭建/">
         <h2 class="post-title">
-            git的使用和内部探索
+            尝试用rabar3搭建一个erlang游戏服务端
         </h2>
         <h3 class="post-subtitle">
-            git的使用和内部探索
+            rebar3
         </h3>
         <div class="post-content-preview">
             ...
@@ -345,59 +396,13 @@ GM模块prot_resolve_91100中清空背包的物品的代码:
             
         </h3>
         <div class="post-content-preview">
-            没有保存。。。重新写。。。
-在第3篇的里说过，在cowboy_clear的最后会调用cowboy_http:init/4, 然后再的set_timeout中设置定时器检查timeout和#state中的值。然后进入before_loop，在before_loop执行inet:setopts(Socket, [{active, once}])。所以cowboy用的是混合消息接收，套接字在这个模......
+            没有保存，重新写。。。
+在第3篇的里说过，在cowboy_clear的最后会调用cowboy_http:init/4, 然后再的set_timeout中设置定时器检查timeout和#state中的值。然后进入before_loop，在before_loop执行inet:setopts(Socket, [{active, once}])。所以cowboy用的是混合消息接收，套接字在这个模式下......
         </div>
     </a>
     <p class="post-meta">
         Posted by easom on
         2019-06-08
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/06/08/剑雨风云场景启动初始化过程--后端/">
-        <h2 class="post-title">
-            剑雨风云场景启动初始化过程--后端
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            在游戏来逻辑节点tpl_node_logic和跨服中心节点tpl_node_kfcenter中start_scene(NodeID, SvrType)将当前节点和服务器类型传入开启场景监控树：
-123456%% @doc 开启场景监控树start_scene(NodeID, SvrType) -&gt;    &#123;ok, _&#125; = supervisor:start_chil......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by easom on
-        2019-06-08
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2019/06/07/剑雨风云的场景广播算法--九宫格/">
-        <h2 class="post-title">
-            剑雨风云的场景广播算法--九宫格
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            剑雨风云的场景广播算法–九宫格http://blog.chinaunix.net/uid-429659-id-5658868.html
-看了一下这篇文章里对九宫格方法的介绍，结合图片，算是很简单易懂了。
-然后看了一下剑雨风云里场景广播算法的实现，也是一样的原理。
-根据每张地图实际大小，分成一个个固定大小的格子，并从左到右赋予编号，每个格子有一样的长和高。 然后就可以根据角色的坐标（x，y）坐......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by easom on
-        2019-06-07
     </p>
 
 </div>
